@@ -1,8 +1,12 @@
 import React from 'react'
+import Header from '../Header'
 
 function Login() {
   return (
-    <div>login</div>
+    <div className=''>
+      <Header/>
+      login
+    </div>
   )
 }
 

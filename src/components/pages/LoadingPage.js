@@ -2,7 +2,7 @@ import React from 'react'
 
 function LoadingPage() {
   return (
-    <div>loadingPage</div>
+    <div>Cargando...</div>
   )
 }
 
