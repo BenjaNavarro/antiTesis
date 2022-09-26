@@ -10,9 +10,9 @@ const root = createRoot(container);
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<ContextProvider>				
         <App />
-			</ContextProvider>
+			{/* <ContextProvider>				
+			</ContextProvider> */}
 		</BrowserRouter>
 	</React.StrictMode>
 );
