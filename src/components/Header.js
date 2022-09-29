@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom';
+import MenuToolTip from './modals/MenuToolTip';
 
 const Header = (props) => {
   return (
@@ -10,7 +11,7 @@ const Header = (props) => {
           Proyecto de Título
         </label>
       </div>
-      <div className='w-1/2 flex justify-between mr-40 items-center'>        
+      <div className='hidden md:hidden w-1/2 lg:flex justify-between mr-40 items-center'>        
         <Link to={'/'}>
           <label className='text-slate-100 cursor-pointer'>
             Home
@@ -23,9 +24,12 @@ const Header = (props) => {
         </Link>
         <Link to={'/call'}>
           <label className='text-slate-100 cursor-pointer'>
-            Video Llamada
+            Videollamada
           </label>
         </Link>
+      </div>
+      <div className='flex sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
+        <MenuToolTip/>
       </div>
     </div>
   )

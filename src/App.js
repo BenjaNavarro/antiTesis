@@ -1,10 +1,12 @@
 import React, {Suspense} from 'react';
 import { Routes, Route } from 'react-router-dom';
-import VideoLlamada from './components/pages/VideoLlamada';
+import LoadingPage from './components/pages/LoadingPage';
 const Home = React.lazy(()=>import('./components/pages/Home'));
 const Login = React.lazy(()=>import('./components/pages/Login'));
 const NotFound = React.lazy(()=>import('./components/pages/NotFound'));
-const LoadingPage = React.lazy(()=>import('./components/pages/LoadingPage'));
+const VideoLlamada = React.lazy(()=>import('./components/pages/VideoLlamada'));
+const RegistroPaciente = React.lazy(()=>import('./components/pages/RegistroPaciente'));
+const RegistroTerapeuta = React.lazy(()=>import('./components/pages/RegistroTerapeuta'));
 
 function App() {
   return (
@@ -22,6 +24,16 @@ function App() {
       <Route path='/call' element={
         <Suspense fallback={<LoadingPage/>}>
           <VideoLlamada/>
+        </Suspense>
+      }/>
+      <Route path='/register' element={
+        <Suspense fallback={<LoadingPage/>}>
+          <RegistroPaciente/>
+        </Suspense>
+      }/>
+      <Route path='/registro_terapeuta' element={
+        <Suspense fallback={<LoadingPage/>}>
+          <RegistroTerapeuta/>
         </Suspense>
       }/>
       <Route path='*' element={
