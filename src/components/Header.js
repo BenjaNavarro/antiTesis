@@ -6,8 +6,8 @@ const Header = (props) => {
   return (
     <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0
     hover:shadow hover:shadow-slate-600'>
-      <div className='w-1/4 self-center'>        
-        <label className='text-slate-100 text-left font-bold italic text-xl'>        
+      <div className='w-1/2 md:w-1/4 self-center'>        
+        <label className='text-slate-100 text-left font-bold italic text-sm md:text-lg xl:text-xl'>        
           Proyecto de Título
         </label>
       </div>
@@ -28,7 +28,7 @@ const Header = (props) => {
           </label>
         </Link>
       </div>
-      <div className='flex sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
+      <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
         <MenuToolTip/>
       </div>
     </div>

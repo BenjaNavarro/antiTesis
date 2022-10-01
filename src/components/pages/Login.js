@@ -20,7 +20,7 @@ export default function Login(props) {
   return (
     <div className='min-h-screen h-full w-full flex flex-col justify-center bg-gray-900'>
       <Header/>
-      <div className='flex flex-col self-center p-8 absolute w-[50%] h-96 top-[25%] rounded-xl border-slate-300 border
+      <div className='flex flex-col self-center p-8 absolute w-[300px] sm:w-[90%] md:w-[90%] lg:w-[85%] xl:w-[75%] h-96 top-[25%] rounded-xl border-slate-300 border
       shadow-2xl shadow-slate-600 bg-gray-900'>
         <label className='text-left font-bold text-slate-300 text-xl'>
           Inicio de Sesión</label>
@@ -33,22 +33,22 @@ export default function Login(props) {
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
           id='rut'
           type='text'
-          onBlur={()=>{
-            if(!Rut.validaRut(rut)){
-              setInvalidRut(true);
-            }else{
-              setInvalidRut(false);
-            }
-          }}
+          // onBlur={()=>{
+          //   if(!Rut.validaRut(rut)){
+          //     setInvalidRut(true);
+          //   }else{
+          //     setInvalidRut(false);
+          //   }
+          // }}
           value={formatoRut(rut)}
           placeholder='Rut'
           onChange={(e)=>{setRut(limpiaRut(e.target.value))}}/>
-          {
+          {/* {
             invalidRut && (
               <IoIosAlert className='text-red-400 text-2xl absolute right-[23.5%] top-[33%] cursor-pointer bg-white rounded-full' 
               title='Formato de Rut Incorrecto!'/>
             )
-          }
+          } */}
         </div>
         <div className='flex flex-col w-1/2 justify-center self-center mt-4'>
           <label htmlFor='contrasena' className='text-left font-bold text-slate-300'>

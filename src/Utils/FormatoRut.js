@@ -8,7 +8,7 @@ export default function formatoRut(rut){
   const rutDigito = nuevoRut.substr(0, nuevoRut.length-1)
 
   let format = numberWithCommas(rutDigito)
-  if(rut==="afasiaadmin") return "AfasiaAdmin"
+  if(rut==="afasiaadmi-n") return "AfasiaAdmin"
   if (rut.length!==0) return format.concat('-').concat(ultimoDigito);
   else return '';
 }
