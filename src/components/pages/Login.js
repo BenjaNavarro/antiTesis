@@ -81,6 +81,9 @@ export default function Login(props) {
             <Link to='/register'>
               <label className='text-white font-bold cursor-pointer'>¡Regístrese!</label>
             </Link>
+            <Link to='/registro_terapeuta'>
+              <label className='text-white font-bold cursor-pointer ml-2'>¡Regístrese Terapeuta!</label>
+            </Link>
           </div>
         </div>
       </div>
