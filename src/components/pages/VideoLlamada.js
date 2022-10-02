@@ -5,10 +5,8 @@ import Header from '../Header';
 const VideoLlamada = () => {
 
   const localVideoRef= useRef(null);
-  const remoteVideoRef= useRef(null);
   const peerConnectionRef= useRef(new RTCPeerConnection(null));
-  const textRef = useRef('');
-  const [userMedia,setUserMedia] = useState(false);
+  const [observaciones,setObservaciones] = useState('');
 
   const createOffer = () =>{
     peerConnectionRef.current.createOffer({
@@ -37,14 +35,14 @@ const VideoLlamada = () => {
   };
 
   const setRemoteDescription = () => {
-    const sdp = JSON.parse(textRef.current.valueOf);
+    const sdp = JSON.parse(observaciones);
     console.log(sdp);
 
     peerConnectionRef.current.setRemoteDescription(new RTCSessionDescription(sdp));
   }
 
   const addCandidate = () => {
-    const candidate = JSON.parse(textRef.current.valueOf);
+    const candidate = JSON.parse(observaciones);
     console.log('Adding candidate...');
 
     peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(candidate));
@@ -85,55 +83,25 @@ const VideoLlamada = () => {
   return (
     <div className='min-h-screen h-full w-full flex flex-col justify-center bg-gray-900'>
       <Header/>
-      <label className='text-4xl text-slate-300 text-center mb-12'>  
+      <label className='text-4xl text-slate-300 text-center mb-12 mt-20 sm:mt-0'>  
         Videollamada
       </label>
-      <div className='w-1/2 flex flex-col justify-center self-center'>
-        <div className='flex flex-row w-full justify-center'>
+      <div className='flex flex-col lg:flex-row w-full justify-center lg:justify-around'>
+        <div className='flex flex-col w-full lg:w-1/2 px-2'>
           <video autoPlay ref={localVideoRef} playsInline 
-          className='w-2/3 rounded-lg border border-white mr-4 self-center'/>
-          <video autoPlay ref={remoteVideoRef} playsInline
-          className='w-2/3 rounded-lg border border-white ml-4 self-center'/>
-        </div>
-        <div className='flex w-full justify-center mt-4'>
-          <button onClick={()=>{
-            getUserMedia();
-            // setUserMedia(true);
-            // createOffer();
-          }} className='bg-gray-900 hover:bg-slate-800 text-slate-300
-          rounded-xl border border-slate-300 hover:border-slate-200 w-1/5 my-8 p-2 self-center text-center'>
+          className='lg:w-[90%] md:w-[90%] w-[22rem] rounded-lg border border-white self-center'/>
+          <button onClick={()=>{getUserMedia()}} className='bg-gray-900 hover:bg-slate-800 text-slate-300
+          rounded-xl border border-slate-300 hover:border-slate-200 w-56 my-8 p-2 self-center text-center'>
             Iniciar Videollamada
           </button>
-          <button onClick={createOffer}
-          className='bg-gray-900 hover:bg-slate-800 text-slate-300
-          rounded-xl border border-slate-300 hover:border-slate-200 w-1/5 my-8 p-2 self-center text-center ml-4'>
-            Crear Oferta
-          </button>
-          <button onClick={createAnswer}
-          className='bg-gray-900 hover:bg-slate-800 text-slate-300
-          rounded-xl border border-slate-300 hover:border-slate-200 w-1/5 my-8 p-2 self-center text-center ml-4'>
-            Crear Respuesta
-          </button>
-          <button className='bg-gray-900 hover:bg-slate-800 text-slate-300
-          rounded-xl border border-slate-300 hover:border-slate-200 w-1/5 my-8 p-2 self-center text-center ml-4'>
-            Responder
-          </button>
-          <div className='flex flex-col w-1/5 ml-4'>
-            <textarea ref={textRef}
-            className='focus:outline-none bg-gray-900 focus:bg-slate-800 text-slate-300 placeholder:text-slate-300
-            rounded-xl border border-slate-300 focus:border-slate-200 w-full my-2 p-2'
-            placeholder='Descripción Remota...'/>
-            <button onClick={setRemoteDescription}
-            className='bg-gray-900 hover:bg-slate-800 text-slate-300
-            rounded-xl border border-slate-300 hover:border-slate-200 w-full my-2 p-2 self-center text-center'>
-              Descripción Remota
-            </button>
-          </div>
-          <button onClick={addCandidate}
-          className='bg-gray-900 hover:bg-slate-800 text-slate-300
-          rounded-xl border border-slate-300 hover:border-slate-200 w-1/5 my-8 p-2 self-center text-center ml-4'>
-            Añadir Candidatos
-          </button>
+        </div>
+        <div className='flex flex-col w-full lg:w-1/2 px-4'>
+          <label htmlFor='observaciones' className='text-center font-bold text-slate-100'>Observaciones del Paciente</label>
+          <textarea id='observaciones' name='observaciones'
+          className='focus:outline-none bg-gray-900 focus:bg-slate-800 text-slate-300 placeholder:text-slate-300
+          rounded-xl border border-slate-300 focus:border-slate-200 lg:w-[90%] w-[22rem] md:w-[90%] p-2 h-56 lg:h-96 self-center'
+          value={observaciones} onChange={(e)=>{setObservaciones(e.target.value)}}
+          placeholder='Escriba sus observaciones'/>
         </div>
       </div>
     </div>
