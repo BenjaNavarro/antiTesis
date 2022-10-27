@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { Popover} from '@headlessui/react';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { FaSearch } from 'react-icons/fa';
 
 const MenuToolTip = (props) => {
 

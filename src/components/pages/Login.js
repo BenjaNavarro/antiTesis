@@ -24,7 +24,7 @@ export default function Login(props) {
       shadow-2xl shadow-slate-600 bg-gray-900'>
         <label className='text-left font-bold text-slate-300 text-xl'>
           Inicio de Sesión</label>
-        <div className='flex flex-col w-1/2 justify-center self-center mt-8'>
+        <div className='flex flex-col w-3/4 sm:w-3/4 md:w-1/2 lg:1/2 xl:1/2 justify-center self-center mt-8'>
           <label htmlFor='rut' className='text-left font-bold text-slate-300'>
             Rut
           </label>
@@ -50,7 +50,7 @@ export default function Login(props) {
             )
           } */}
         </div>
-        <div className='flex flex-col w-1/2 justify-center self-center mt-4'>
+        <div className='flex flex-col  w-3/4 sm:w-3/4 md:w-1/2 lg:1/2 xl:1/2 justify-center self-center mt-4'>
           <label htmlFor='contrasena' className='text-left font-bold text-slate-300'>
             Contraseña
           </label>
@@ -61,9 +61,9 @@ export default function Login(props) {
             id='contrasena'
             type={passCheck?'text':'password'}
             value={pass}
-            placeholder={passCheck?'Escriba su contraseña...':'********'}
+            placeholder={passCheck?'Contraseña...':'********'}
             onChange={(e)=>{setPass(e.target.value)}}/>
-            <div className='relative bottom-[50%] left-[93%] flex items-center leading-5'>
+            <div className='relative bottom-[50%] left-[85%] sm:left-[85%] md:left-[93%] flex items-center leading-5'>
               <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
               onClick={()=>{setPassCheck(!passCheck)}}>
                 {!passCheck?<FaEye/>:<FaEyeSlash/>}
@@ -72,11 +72,11 @@ export default function Login(props) {
           </label>
         </div>
         <div className='flex flex-col w-full justify-end self-center'>
-          <button className='bg-gray-900 hover:bg-slate-800 text-slate-300
+          <button className='bg-gray-900 hover:bg-slate-800 text-slate-300 self-center sm:self-center md:justify-end
           rounded-xl border border-slate-300 hover:border-slate-200 w-40 lg:w-1/4 xl:w-1/5 p-2 self-end text-center'>
             Iniciar Sesión
           </button>
-          <div className='flex flex-row'>
+          <div className='flex flex-row self-center p-2 w-full text-xs sm:text-xs md:text-lg'>
             <label className='text-white mr-2'>¿No tiene cuenta?</label>
             <Link to='/register'>
               <label className='text-white font-bold cursor-pointer'>¡Regístrese!</label>
