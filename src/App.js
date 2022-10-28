@@ -7,8 +7,13 @@ const NotFound = React.lazy(()=>import('./components/pages/NotFound'));
 const VideoLlamada = React.lazy(()=>import('./components/pages/VideoLlamada'));
 const RegistroPaciente = React.lazy(()=>import('./components/pages/RegistroPaciente'));
 const RegistroTerapeuta = React.lazy(()=>import('./components/pages/RegistroTerapeuta'));
+const LoginAdmin = React.lazy(()=>import('./components/pages/LoginAdmin'));
+const LoginTerapist = React.lazy(()=>import('./components/pages/LoginTerapist'));
+
+const user = localStorage.getItem('userLoged');
 
 function App() {
+  console.log({user});
   return (
     <Routes>
       <Route path='/' element={
@@ -36,11 +41,21 @@ function App() {
           <RegistroTerapeuta/>
         </Suspense>
       }/>
+      <Route path='/login_admin' element={
+        <Suspense fallback={<LoadingPage/>}>
+          <LoginAdmin/>
+        </Suspense>
+      }/>
+      <Route path='/login_terapist' element={
+        <Suspense fallback={<LoadingPage/>}>
+          <LoginTerapist/>
+        </Suspense>
+      }/>
       <Route path='*' element={
         <Suspense fallback={<LoadingPage/>}>
           <NotFound/>
         </Suspense>
-        }/>
+      }/>
     </Routes>
   )
 }

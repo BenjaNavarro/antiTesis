@@ -24,10 +24,10 @@ const RegistroPaciente = () => {
   const [birthDate,setBirthDate] = useState(null);
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
-  const [picture,setPicture] = useState(null);
+  // const [picture,setPicture] = useState(null);
   const [checkPassword,setCheckPassword] = useState(false);
   const [checkPasswordConfirmation,setCheckPasswordConfirmation] = useState(false);
-  const [validForm,setValidForm] = useState(false);
+  // const [validForm,setValidForm] = useState(false);
 
   // useEffect(()=>{
   //   setValidForm(!invalidForm());
@@ -60,8 +60,8 @@ const RegistroPaciente = () => {
     const url = process.env.REACT_APP_API_HOST+'/api/pacients/new';
     const body = {
       names: name,
-      firstLastName:lastName,
-      secondLastName:'Soto',
+      lastName:lastName,
+      // secondLastName:'Soto',
       RUT:rut,
       address:address,
       email:email,
@@ -218,6 +218,14 @@ const RegistroPaciente = () => {
       <div className='flex flex-col w-3/4 justify-center'>
         <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>
+            Fecha de Nacimiento
+          </label>
+          <input type={'date'} className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
+          rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
+          value={birthDate} onChange={(e)=>{setBirthDate(e.target.value)}} placeholder='01-01-1900'/>
+        </div>
+        <div className='flex flex-col w-full'>
+          <label className='text-slate-100 text-left'>
             Dirección
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
@@ -230,7 +238,7 @@ const RegistroPaciente = () => {
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={password} type='password' onChange={(e)=>{setPassword(e.target.value)}} placeholder='********'/>
+          value={password} type={'password'} onChange={(e)=>{setPassword(e.target.value)}} placeholder='********'/>
         </div>
         <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>
@@ -238,7 +246,7 @@ const RegistroPaciente = () => {
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={confirmPassword} type='password' onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder='********'/>
+          value={confirmPassword} type={'password'} onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder='********'/>
           {
             password != confirmPassword && (
               <label className='text-red-500 text-xs mt-4 flex flex-row self-center'>
@@ -246,7 +254,7 @@ const RegistroPaciente = () => {
                 <IoIosAlert className='text-red-500 text-sm bg-white rounded-full self-center ml-1'/>
               </label>
             )
-        }
+          }
         </div>
         {/* <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>

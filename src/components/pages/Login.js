@@ -6,15 +6,46 @@ import Header from '../Header';
 import formatoRut from '../../Utils/FormatoRut';
 import Rut from '../../Utils/Rut';
 import limpiaRut from '../../Utils/LimpiaRut';
+import Swal from 'sweetalert2';
 
 export default function Login(props) {
   const [rut,setRut] = useState('');
-  const [invalidRut,setInvalidRut] = useState(false);
+  // const [invalidRut,setInvalidRut] = useState(false);
   const [pass,setPass] = useState('');
   const [passCheck,setPassCheck] = useState(false);
 
-  const login = () => {
-
+  async function login(){
+    const url = process.env.REACT_APP_API_HOST+'/api/pacients/login';
+    const body = {
+      rut:limpiaRut(rut),
+      password:pass
+    }
+    await fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        // 'Authorization': Auth.getToken()
+      },
+      body: JSON.stringify(body)
+    }).then((res)=>{
+      return res.json();
+    }).then((res)=>{
+      // console.log({res});
+      if(res.status === 200){
+        localStorage.setItem('userLoged',JSON.stringify(res.pacient));
+      }else if(res.status===400){
+        Swal.fire({
+          title:'Error!',
+          text:'¡Credenciales Inválidas!',
+          icon:'error',
+          confirmButtonText:'Ok',
+          // showCancelButton:true,
+          // cancelButtonText:'No'
+        })
+      }
+    }).catch((error)=>{
+      console.log({error});
+    });
   }
 
   return (
@@ -72,7 +103,10 @@ export default function Login(props) {
           </label>
         </div>
         <div className='flex flex-col w-full justify-end self-center mt-4'>
-          <button className='bg-gray-900 hover:bg-slate-800 text-slate-300
+          <button onClick={()=>{
+            login();
+          }}
+          className='bg-gray-900 hover:bg-slate-800 text-slate-300
           rounded-xl border border-slate-300 hover:border-slate-200 w-40 lg:w-1/4 xl:w-1/5 p-2 self-end text-center'>
             Iniciar Sesión
           </button>
