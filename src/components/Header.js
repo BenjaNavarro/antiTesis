@@ -30,14 +30,16 @@ const Header = (props) => {
   }*/
 
   return (
-    <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0
+    <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0
     hover:shadow hover:shadow-slate-600'>
-      <div className='hidden md:hidden w-1/2 lg:flex justify-between mr-40 items-center'>     
-        <Link to={'/'}>   
-          <label className='text-slate-100 text-left font-bold italic text-sm md:text-lg xl:text-xl'>        
+      <div className='w-32 md:w-1/4 self-center'>
+        <Link to={'/'}>
+          <label className='text-slate-100 text-left font-bold italic text-sm md:text-lg xl:text-xl cursor-pointer'>        
             Proyecto de Título
           </label>
-        </Link> 
+        </Link>
+      </div>
+      <div className='hidden md:hidden w-1/2 lg:flex justify-between mr-40 items-center'>        
         <Link to={'/'}>
           <label className='text-slate-100 cursor-pointer'>
             Home

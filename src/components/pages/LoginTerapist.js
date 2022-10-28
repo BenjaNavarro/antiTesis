@@ -8,16 +8,16 @@ import Rut from '../../Utils/Rut';
 import limpiaRut from '../../Utils/LimpiaRut';
 import Swal from 'sweetalert2';
 
-export default function Login(props) {
-  const [rut,setRut] = useState('');
+const LoginTerapist = () => {
+const [rut,setRut] = useState('');
   // const [invalidRut,setInvalidRut] = useState(false);
   const [pass,setPass] = useState('');
   const [passCheck,setPassCheck] = useState(false);
 
   async function login(){
-    const url = process.env.REACT_APP_API_HOST+'/api/pacients/login';
+    const url = process.env.REACT_APP_API_HOST+'/api/admins/login';
     const body = {
-      rut:limpiaRut(rut),
+      rut:rut,
       password:pass
     }
     await fetch(url,{
@@ -30,9 +30,9 @@ export default function Login(props) {
     }).then((res)=>{
       return res.json();
     }).then((res)=>{
-      // console.log({res});
+      console.log({res});
       if(res.status === 200){
-        localStorage.setItem('userLoged',JSON.stringify(res.pacient));
+        localStorage.setItem('userLoged',JSON.stringify(res.admin));
       }else if(res.status===400){
         Swal.fire({
           title:'Error!',
@@ -92,9 +92,9 @@ export default function Login(props) {
             id='contrasena'
             type={passCheck?'text':'password'}
             value={pass}
-            placeholder={passCheck?'Contraseña...':'********'}
+            placeholder={passCheck?'Escriba su contraseña...':'********'}
             onChange={(e)=>{setPass(e.target.value)}}/>
-            <div className='absolute top-[50%] sm:top-[52.5%] self-center left-[71%] sm:left-[89%] md:left-[90%] lg:left-[82%] xl:left-[82%] flex items-center leading-5'>
+            <div className='absolute top-[64.5%] sm:top-[62%] self-center left-[76%] sm:left-[89%] md:left-[90%] lg:left-[81%] xl:left-[82%] flex items-center leading-5'>
               <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
               onClick={()=>{setPassCheck(!passCheck)}}>
                 {!passCheck?<FaEye/>:<FaEyeSlash/>}
@@ -110,17 +110,16 @@ export default function Login(props) {
           rounded-xl border border-slate-300 hover:border-slate-200 w-40 lg:w-1/4 xl:w-1/5 p-2 self-end text-center'>
             Iniciar Sesión
           </button>
-          <div className='flex flex-row mt-8'>
+          {/* <div className='flex flex-row mt-8'>
             <label className='text-white mr-2'>¿No tiene cuenta?</label>
             <Link to='/register'>
               <label className='text-white font-bold cursor-pointer'>¡Regístrese!</label>
             </Link>
-            <Link to='/registro_terapeuta'>
-              <label className='text-white font-bold cursor-pointer ml-2'>¡Regístrese Terapeuta!</label>
-            </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
   )
 }
+
+export default LoginTerapist

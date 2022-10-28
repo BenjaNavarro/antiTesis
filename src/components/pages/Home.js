@@ -45,45 +45,18 @@ function Home(props){
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50'>
       <Header/>
-      <form onSubmit={enviarDatos}>
-        <div className='flex mt-20 items-center'>
-          <input className='text-slate-900 rounded-l' placeholder='Buscar' onChange={(e) => setNombre(e.target.value)}/>
-          <button className='items-center w-20 h-6 bg-slate-600 rounded-r' type='submit'>Buscar</button>
-        </div>
-      </form>
-      
-			<div className='mt-12'>
-        <h1>Doctores</h1>
-				<div>
-          {
-            nombre === '' ? <Medicos/> : <MedicosBuscados nombre={nombre} />
-          
-          
-          /*
-            medicos.length === 0 ? <NoEncontrado/> : 
-            medicos.map((doctor,index) => 
-            <Fragment>
-                <h1 key={index}>Nombre: {doctor.nombre}</h1>
-                <p key={index}>Apellido: {doctor.apellido}</p>
-                <p key={index}>Edad: {doctor.edad}</p>
-                <p key={index}>Especialidad: {doctor.especialidad}</p>
-            </Fragment>
-           //  nombre === '' ? <Medicos/> : <MedicosBuscados nombre={nombre} />
-           /*
-           medicos.map(doctor => 
-            <Fragment>
-                <h1 key={doctor.id}>Nombre: {doctor.nombre}</h1>
-                <p key={doctor.id}>Apellido: {doctor.apellido}</p>
-                <p key={doctor.id}>Edad: {doctor.edad}</p>
-                <p key={doctor.id}>Especialidad: {doctor.especialidad}</p>
-            </Fragment>
-            
-            ) 
-            */
-          }       
-			  </div>
-		  </div>
-    </div>
+			<div className='flex flex-col w-full h-full mt-96'>
+        <label className='text-slate-100 text-6xl font-bold text-center w-full'>
+				  AFASIA
+        </label>
+        <label className='text-slate-100 text-center text-xl mt-[60%]'>
+          A veces unas palabras nos cuestan la vida...
+        </label>
+        <label className='text-slate-100 text-center text-lg mt-[60%] mb-[40%] px-96'>
+          Queremos ayudar a quienes no se pueden expresar
+        </label>
+			</div>
+		</div>
   )
 }
 

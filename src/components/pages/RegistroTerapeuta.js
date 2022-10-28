@@ -9,7 +9,7 @@ import limpiaRut from '../../Utils/LimpiaRut';
 import { IoIosAlert } from 'react-icons/io';
 import ValidateEmail from '../../Utils/EmailValidator';
 
-const RegistroPaciente = () => {
+const RegistroTerapeuta = () => {
   const [step,setStep] = useState(1);
   const [name,setName] = useState('');
   const [validName,setValidName] = useState(true);
@@ -23,7 +23,6 @@ const RegistroPaciente = () => {
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
   const [picture,setPicture] = useState(null);
-  const [cv,setCv] = useState(null);
   const [checkPassword,setCheckPassword] = useState(false);
   const [checkPasswordConfirmation,setCheckPasswordConfirmation] = useState(false);
 
@@ -180,6 +179,20 @@ const RegistroPaciente = () => {
             )
         }
         </div>
+        <div className='flex flex-col w-full'>
+          <label className='text-slate-100 text-left'>
+            Foto de Perfil
+          </label>
+          <div className="flex justify-center my-1">
+            <label htmlFor='imagen' 
+            className="bg-gray-900 hover:bg-slate-800 text-slate-300 hover:outline-none cursor-pointer
+            rounded-xl border border-slate-300 hover:border-slate-200 w-full p-2 self-center text-center">
+              Presione aquí para agregar una foto
+            </label>
+            <input className="hidden" id='imagen'
+            type="file" accept='.jpeg,.png,.gif,.jpg,.TIFF' name="imagen" onChange={(e)=>{changePicture(e)}}/>
+          </div>
+        </div>
         <button onClick={()=>{
           Swal.fire({
             title:'',
@@ -230,4 +243,4 @@ const RegistroPaciente = () => {
   )
 }
 
-export default RegistroPaciente;
+export default RegistroTerapeuta;
