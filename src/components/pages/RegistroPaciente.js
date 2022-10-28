@@ -14,19 +14,24 @@ const RegistroPaciente = () => {
   const [name,setName] = useState('');
   const [validName,setValidName] = useState(true);
   const [lastName,setLastName] = useState('');
+  const [invalidLastName,setInvalidLastName] = useState(true);
   const [rut,setRut] = useState('');
   const [invalidRut,setInvalidRut] = useState(false);
   const [email,setEmail] = useState('');
   const [invalidMail,setInvalidMail] = useState(false);
   const [phone,setPhone] = useState('');
   const [address,setAddress] = useState('');
+  const [birthDate,setBirthDate] = useState(null);
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
   const [picture,setPicture] = useState(null);
   const [checkPassword,setCheckPassword] = useState(false);
   const [checkPasswordConfirmation,setCheckPasswordConfirmation] = useState(false);
+  const [validForm,setValidForm] = useState(false);
 
-  // useEffect();
+  // useEffect(()=>{
+  //   setValidForm(!invalidForm());
+  // },[validForm]);
 
   const steps = () => {
     if(step === 1){
@@ -36,24 +41,88 @@ const RegistroPaciente = () => {
     }
   }
 
-  const changePicture = (e) => {
-    var file = e.target.files[0];
-    file.url = URL.createObjectURL(file);
-    var ext = file.name.split('.').pop();
-    // console.log("EXTENSION ",file);
+  // const changePicture = (e) => {
+  //   var file = e.target.files[0];
+  //   file.url = URL.createObjectURL(file);
+  //   var ext = file.name.split('.').pop();
+  //   // console.log("EXTENSION ",file);
 
-    if(ext !='jpeg' && ext !='png' && ext !='gif' && ext !='jpg' && ext !='TIFF')
-    {
+  //   if(ext !='jpeg' && ext !='png' && ext !='gif' && ext !='jpg' && ext !='TIFF')
+  //   {
+  //   }
+  //   else
+  //   {
+  //     setPicture(file);
+  //   }
+  // }
+
+  async function CrearPaciente(){
+    const url = process.env.REACT_APP_API_HOST+'/api/pacients/new';
+    const body = {
+      names: name,
+      firstLastName:lastName,
+      secondLastName:'Soto',
+      RUT:rut,
+      address:address,
+      email:email,
+      phone:phone,
+      password:password,
+      password_confirmation:confirmPassword
     }
-    else
-    {
-      setPicture(file);
-    }
+    // var body = new FormData();
+    // body.append('names',name);
+    // body.append('firstLastName',lastName);
+    // body.append('RUT',rut);
+    // body.append('address',address);
+    // body.append('phone',phone);
+    // body.append('email',email);
+    // body.append('password',password);
+    // body.append('password_confirmation',confirmPassword);
+    await fetch(url,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': Auth.getToken()
+      },
+      body: JSON.stringify(body)
+    }).then((res)=>{
+      return res.json();
+    }).then((res)=>{
+      console.log({res});
+      if(res.status === 200){
+        Swal.fire({
+          title:'Paciente Creado!',
+          text:'¡Se creó el paciente con éxito!',
+          icon:'success',
+          confirmButtonText:'Ok',
+          // showCancelButton:true,
+          // cancelButtonText:'No'
+        })
+      }else{
+        Swal.fire({
+          title:'Error!',
+          text:'¡No se pudo crear el paciente!',
+          icon:'error',
+          confirmButtonText:'Ok',
+          // showCancelButton:true,
+          // cancelButtonText:'No'
+        })
+      }
+    }).catch((err)=>{
+      Swal.fire({
+        title:'Error!',
+        text:'¡No se pudo crear el paciente!',
+        icon:'error',
+        confirmButtonText:'Ok',
+        // showCancelButton:true,
+        // cancelButtonText:'No'
+      })
+    })
   }
 
   const invalidForm = () => {
     return (
-      !name || !lastName || !email || !password || !confirmPassword || !phone || !address || (password != confirmPassword)
+      !name || !lastName || !email || !password || !confirmPassword || !phone || !address || !(password == confirmPassword)
     )
   }
 
@@ -179,7 +248,7 @@ const RegistroPaciente = () => {
             )
         }
         </div>
-        <div className='flex flex-col w-full'>
+        {/* <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>
             Foto de Perfil
           </label>
@@ -192,7 +261,7 @@ const RegistroPaciente = () => {
             <input className="hidden" id='imagen'
             type="file" accept='.jpeg,.png,.gif,.jpg,.TIFF' name="imagen" onChange={(e)=>{changePicture(e)}}/>
           </div>
-        </div>
+        </div> */}
         <button onClick={()=>{
           Swal.fire({
             title:'',
@@ -201,6 +270,10 @@ const RegistroPaciente = () => {
             confirmButtonText:'Sí',
             showCancelButton:true,
             cancelButtonText:'No'
+          }).then((res)=>{
+            if(res.isConfirmed){
+              CrearPaciente();
+            }
           });
         }} disabled={invalidForm()}
         className='bg-blue-400 hover:bg-blue-500 mt-6 w-40 rounded hover:scale-110 disabled:hover:scale-100 disabled:cursor-not-allowed
@@ -208,12 +281,13 @@ const RegistroPaciente = () => {
           Continuar
         </button>
         {
-          invalidForm && (
+          invalidForm()?
             <label className='text-red-500 text-xs mt-4 flex flex-row self-center'>
+              {/* {console.log({validForm})} */}
               ¡Debe Completar todos los datos del Formulario! 
-              <IoIosAlert className='text-red-500 text-sm bg-white rounded-full self-center ml-1'/>
+              <IoIosAlert className='text-red-500 text-base bg-white rounded-full self-center ml-1'/>
             </label>
-          )
+            :null
         }
       </div>
     )
