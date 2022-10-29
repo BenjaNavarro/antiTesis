@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import formatoRut from '../../Utils/FormatoRut';
 import Rut from '../../Utils/Rut';
@@ -21,7 +21,7 @@ const RegistroPaciente = () => {
   const [invalidMail,setInvalidMail] = useState(false);
   const [phone,setPhone] = useState('');
   const [address,setAddress] = useState('');
-  const [birthDate,setBirthDate] = useState(null);
+  const [birthDate,setBirthDate] = useState(new Date());
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
   // const [picture,setPicture] = useState(null);
@@ -238,7 +238,13 @@ const RegistroPaciente = () => {
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={password} type={'password'} onChange={(e)=>{setPassword(e.target.value)}} placeholder='********'/>
+          value={password} type={checkPassword?'text':'password'} onChange={(e)=>{setPassword(e.target.value)}} placeholder={checkPassword?'contraseña':'********'}/>
+          <div className='absolute top-[64.5%] sm:top-[54%] self-center left-[76%] sm:left-[89%] md:left-[90%] lg:left-[81%] xl:left-[82%] flex items-center leading-5'>
+            <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
+            onClick={()=>{setCheckPassword(!checkPassword)}}>
+              {!checkPassword?<FaEye/>:<FaEyeSlash/>}
+            </button>
+          </div>
         </div>
         <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>
@@ -246,14 +252,20 @@ const RegistroPaciente = () => {
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={confirmPassword} type={'password'} onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder='********'/>
+          value={confirmPassword} type={checkPasswordConfirmation?'text':'password'} onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder={checkPasswordConfirmation?'confirmar contraseña':'********'}/>
+          <div className='absolute top-[64.5%] sm:top-[67.5%] self-center left-[76%] sm:left-[89%] md:left-[90%] lg:left-[81%] xl:left-[82%] flex items-center leading-5'>
+            <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
+            onClick={()=>{setCheckPasswordConfirmation(!checkPasswordConfirmation)}}>
+              {!checkPasswordConfirmation?<FaEye/>:<FaEyeSlash/>}
+            </button>
+          </div>
           {
-            password != confirmPassword && (
+            password != confirmPassword ? 
               <label className='text-red-500 text-xs mt-4 flex flex-row self-center'>
                 ¡Ambas contraseñas deben ser iguales! 
                 <IoIosAlert className='text-red-500 text-sm bg-white rounded-full self-center ml-1'/>
               </label>
-            )
+            :null
           }
         </div>
         {/* <div className='flex flex-col w-full'>

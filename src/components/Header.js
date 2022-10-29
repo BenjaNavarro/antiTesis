@@ -13,14 +13,14 @@ const Header = (props) => {
           </label>
         </Link>
       </div>
-      <div className='hidden md:hidden w-1/2 lg:flex justify-between mr-40 items-center'>        
-        <Link to={'/'}>
+      <div className='hidden md:hidden w-1/2 lg:flex justify-end mr-40 items-center'>        
+        {/* <Link to={'/'}>
           <label className='text-slate-100 cursor-pointer'>
             Home
           </label>
-        </Link>
+        </Link> */}
         <Link to={'/login'}>
-          <label className='text-slate-100 cursor-pointer'>
+          <label className='text-slate-100 cursor-pointer mr-96'>
             Login
           </label>
         </Link>

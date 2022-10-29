@@ -28,9 +28,10 @@ export default function Login(props) {
       },
       body: JSON.stringify(body)
     }).then((res)=>{
+      console.log('Header:',res.header);
       return res.json();
     }).then((res)=>{
-      // console.log({res});
+      console.log({res});
       if(res.status === 200){
         localStorage.setItem('userLoged',JSON.stringify(res.pacient));
       }else if(res.status===400){
