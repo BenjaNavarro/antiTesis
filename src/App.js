@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoadingPage from './components/pages/LoadingPage';
 const Home = React.lazy(()=>import('./components/pages/Home'));
 const Login = React.lazy(()=>import('./components/pages/Login'));
@@ -27,9 +27,11 @@ function App() {
         </Suspense>
       }/>
       <Route path='/call' element={
+        user ? 
         <Suspense fallback={<LoadingPage/>}>
           <VideoLlamada/>
         </Suspense>
+        :<Navigate to={'/'} replace={true}/>
       }/>
       <Route path='/register' element={
         <Suspense fallback={<LoadingPage/>}>

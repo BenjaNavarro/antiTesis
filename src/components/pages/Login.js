@@ -7,7 +7,11 @@ import formatoRut from '../../Utils/FormatoRut';
 import Rut from '../../Utils/Rut';
 import limpiaRut from '../../Utils/LimpiaRut';
 import Swal from 'sweetalert2';
+import Auth from '../../Utils/Auth';
+import jwtDecode from 'jwt-decode';
 
+
+//LOGIN PACIENT
 export default function Login(props) {
   const [rut,setRut] = useState('');
   // const [invalidRut,setInvalidRut] = useState(false);
@@ -28,9 +32,17 @@ export default function Login(props) {
       },
       body: JSON.stringify(body)
     }).then((res)=>{
+      // console.log('Header:',res.header);
+      if(res.status === 200){
+        const token = res.headers.get('x-auth-token');
+        console.log({token});
+        localStorage.setItem('permisos', JSON.stringify(jwtDecode(token)))
+        Auth.updateToken(token);
+      }
+      // console.log({res});
       return res.json();
     }).then((res)=>{
-      // console.log({res});
+      console.log({res});
       if(res.status === 200){
         localStorage.setItem('userLoged',JSON.stringify(res.pacient));
       }else if(res.status===400){
