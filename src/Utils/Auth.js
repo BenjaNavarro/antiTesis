@@ -16,7 +16,6 @@ export default class Auth extends React.Component{
 		else {
 			console.log("es vacio, se mantiene: ", localStorage.getItem('x_auth_token'));
 		}
-
 	}
 
 	static isUserAuthenticate(){

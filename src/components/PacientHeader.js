@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const PacientHeader = () => {
     const user = JSON.parse(localStorage.getItem('userLoged'));
+
+    useEffect(()=>{
+      console.log('Pacient Header');
+    },[]);
 
     return (
       <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0

@@ -1,8 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import MenuToolTip from './modals/MenuToolTip';
 
 const Header = (props) => {
+
+  useEffect(()=>{
+    console.log('Header');
+  },[]);
+
   return (
     <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0
     hover:shadow hover:shadow-slate-600'>

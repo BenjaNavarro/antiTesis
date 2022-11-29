@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const AdminHeader = () => {
+
+  useEffect(()=>{
+    console.log('Admin Header');
+  },[]);
 
   const user = JSON.parse(localStorage.getItem('userLoged'));
 
