@@ -56,12 +56,6 @@ const Header = (props) => {
           </label>
         </Link>
       </div>
-      <form onSubmit={enviarDatos}>
-        <div className='flex items-center sm:flex sm:items-end md:flex md:items-end sm:self-center md:seld-center p-3'>
-          <input className='text-slate-900 rounded-l' placeholder='Buscar' onChange={(e) => setNombre(e.target.value)}/>
-          <button className='w-6 h-6 bg-slate-600 rounded-r p-1' type='submit'><FaSearch/></button>
-        </div>
-      </form>
       <div className='flex items-center  sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
         <MenuToolTip/>
       </div>
