@@ -9,8 +9,14 @@ const RegistroPaciente = React.lazy(()=>import('./components/pages/RegistroPacie
 const RegistroTerapeuta = React.lazy(()=>import('./components/pages/RegistroTerapeuta'));
 const LoginAdmin = React.lazy(()=>import('./components/pages/LoginAdmin'));
 const LoginTerapist = React.lazy(()=>import('./components/pages/LoginTerapist'));
+const AdminProfile = React.lazy(()=>import('./components/pages/Admin/AdminProfile'));
+const PacientsAdmin = React.lazy(()=>import('./components/pages/Admin/PacientsAdmin'));
+const PacientProfile = React.lazy(()=>import('./components/pages/Pacient/PacientProfile'));
+const TerapistProfile = React.lazy(()=>import('./components/pages/Terapist/TerapistProfile'));
+const MyPacients = React.lazy(()=>import('./components/pages/Terapist/MyPacients'));
+const TerapistsAdmin = React.lazy(()=>import('./components/pages/Admin/TerapistsAdmin'));
 
-const user = localStorage.getItem('userLoged');
+const user = JSON.parse(localStorage.getItem('userLoged'));
 
 function App() {
   console.log({user});
@@ -22,10 +28,55 @@ function App() {
         </Suspense>
       }/>
       <Route path='/login' element={
+        user?
+        <Navigate to={'/perfil'} replace={true}/>
+        :
         <Suspense fallback={<LoadingPage/>}>
           <Login/>
         </Suspense>
       }/>
+      <Route path='/perfil' element={
+        user?.type == 'admin'?
+          <Suspense fallback={<LoadingPage/>}>
+            <AdminProfile/>
+          </Suspense>
+        :
+        user?.type == 'terapist'?
+          <Suspense fallback={<LoadingPage/>}>
+            <TerapistProfile/>
+          </Suspense>
+        :
+        user?.type == 'pacient'?
+          <Suspense fallback={<LoadingPage/>}>
+            <PacientProfile/>
+          </Suspense>
+        :<Navigate to={'/login'} replace={true}/>
+      }/>
+      <Route path='/pacients' element={
+        user?.type == 'admin'?
+          <Suspense fallback={<LoadingPage/>}>
+            <PacientsAdmin/>
+          </Suspense>
+        :
+        user?.type == 'terapist'?
+          <Suspense fallback={<LoadingPage/>}>
+            <MyPacients/>
+          </Suspense>
+        :
+        user?.type == 'pacient'?
+          <Navigate to={'/perfil'} replace={true}/>
+        :
+          <Navigate to={'/login'} replace={true}/>
+      }/>
+      <Route path='/terapists' element={
+        user?.type == 'admin'?
+         <Suspense>
+            <TerapistsAdmin/>
+         </Suspense>
+         :<Navigate to={'/perfil'} replace={true}/>
+      }/>
+      {/* <Route path='/calls' /> */}
+      {/* <Route path='/users' /> */}
       <Route path='/call' element={
         user ? 
         <Suspense fallback={<LoadingPage/>}>

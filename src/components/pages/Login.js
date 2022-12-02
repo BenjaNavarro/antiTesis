@@ -45,6 +45,7 @@ export default function Login(props) {
       console.log({res});
       if(res.status === 200){
         localStorage.setItem('userLoged',JSON.stringify(res.pacient));
+        window.location.href = '/perfil';
       }else if(res.status===400){
         Swal.fire({
           title:'Error!',

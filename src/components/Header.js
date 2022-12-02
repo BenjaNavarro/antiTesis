@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa'
 import MenuToolTip from './modals/MenuToolTip';
@@ -8,26 +8,12 @@ import { setNombreService, getNombreService, getMedicosPorNombreApellido } from 
 
 const Header = (props) => {
 
-  const [nombre,setNombre] = useState('');
+  const user = JSON.parse(localStorage.getItem('userLoged'));
 
-  const enviarDatos = (event) => {
-    event.preventDefault();
-    setNombreService(nombre);
-  //  <Home nombre={nombre} />
-    console.log(nombre);
-  }
-
-  /*
-  const enviarDatosHeader = (event) => {
-    event.preventDefault();
-    const nombreHeader = getNombreService();
-    console.log("Nombre header: "+nombreHeader);
-    const medEncontradosHeader = getMedicosPorNombreApellido(nombreHeader);
-    console.log("Medicos encontrados header: "+medEncontradosHeader);
-    setMedicos(medEncontradosHeader);
-    console.log("Medicos encontrados header setMedicos: "+medicos);
-
-  }*/
+  useEffect(()=>{
+    console.log('Header');
+    console.log({user});
+  },[]);
 
   return (
     <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0
@@ -39,22 +25,27 @@ const Header = (props) => {
           </label>
         </Link>
       </div>
-      <div className='hidden md:hidden w-1/2 lg:flex justify-end mr-40 items-center'>        
+      <div className='hidden md:hidden w-3/4 lg:flex justify-end items-center'>        
         {/* <Link to={'/'}>
           <label className='text-slate-100 cursor-pointer'>
             Home
           </label>
         </Link> */}
         <Link to={'/login'}>
-          <label className='text-slate-100 cursor-pointer mr-96'>
+          <label 
+          className={
+            props.active=='login'?
+              'text-slate-100 cursor-pointer mr-20 hover:font-semibold hover:border-b-2 border-white hover:text-white'
+              :'border-white text-white font-semibold border-b-2 mr-20'}
+          >
             Login
           </label>
         </Link>
-        <Link to={'/call'}>
+        {/* <Link to={'/call'}>
           <label className='text-slate-100 cursor-pointer'>
             Videollamada
           </label>
-        </Link>
+        </Link> */}
       </div>
       <div className='flex items-center  sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
         <MenuToolTip/>
