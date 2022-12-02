@@ -1,6 +1,6 @@
 import React from 'react';
-import capitalizeFirstLetter from '../../../Utils/CapitalizeFirstLetter';
 import TerapistHeader from '../../TerapistHeader';
+import capitalizeFirstLetter from '../../../Utils/CapitalizeFirstLetter';
 import { FaPhone, FaEnvelope, FaUser, FaUsers, FaIdCard, FaBirthdayCake } from 'react-icons/fa';
 import formatoRut from '../../../Utils/FormatoRut';
 

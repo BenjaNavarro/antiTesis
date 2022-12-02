@@ -4,8 +4,11 @@ import MenuToolTip from './modals/MenuToolTip';
 
 const Header = (props) => {
 
+  const user = JSON.parse(localStorage.getItem('userLoged'));
+
   useEffect(()=>{
     console.log('Header');
+    console.log({user});
   },[]);
 
   return (
@@ -18,22 +21,27 @@ const Header = (props) => {
           </label>
         </Link>
       </div>
-      <div className='hidden md:hidden w-1/2 lg:flex justify-end mr-40 items-center'>        
+      <div className='hidden md:hidden w-3/4 lg:flex justify-end items-center'>        
         {/* <Link to={'/'}>
           <label className='text-slate-100 cursor-pointer'>
             Home
           </label>
         </Link> */}
         <Link to={'/login'}>
-          <label className='text-slate-100 cursor-pointer mr-96'>
+          <label 
+          className={
+            props.active=='login'?
+              'text-slate-100 cursor-pointer mr-20 hover:font-semibold hover:border-b-2 border-white hover:text-white'
+              :'border-white text-white font-semibold border-b-2 mr-20'}
+          >
             Login
           </label>
         </Link>
-        <Link to={'/call'}>
+        {/* <Link to={'/call'}>
           <label className='text-slate-100 cursor-pointer'>
             Videollamada
           </label>
-        </Link>
+        </Link> */}
       </div>
       <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
         <MenuToolTip/>

@@ -6,7 +6,8 @@ import Auth from '../Utils/Auth';
 import Logout from '../Utils/Logout';
 
 const TerapistHeader = () => {
-
+  
+  const user = JSON.parse(localStorage.getItem('userLoged'));
   const [toggleDoor, setToggleDoor] = useState(false);
 
   useEffect(()=>{
@@ -32,7 +33,6 @@ const TerapistHeader = () => {
     }).catch((error)=>{console.error({error})});
   }
 
-  const user = JSON.parse(localStorage.getItem('userLoged'));
 
   return (
     <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0
