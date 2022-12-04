@@ -7,6 +7,8 @@ import formatoRut from '../../Utils/FormatoRut';
 import Rut from '../../Utils/Rut';
 import limpiaRut from '../../Utils/LimpiaRut';
 import Swal from 'sweetalert2';
+import Auth from '../../Utils/Auth';
+import jwtDecode from 'jwt-decode';
 
 const LoginAdmin = () => {
   const [rut,setRut] = useState('');
@@ -28,6 +30,13 @@ const LoginAdmin = () => {
       },
       body: JSON.stringify(body)
     }).then((res)=>{
+      console.log('Header:',res.header);
+      if(res.status === 200){
+        const token = res.headers.get('x-auth-token');
+        console.log({token});
+        localStorage.setItem('permisos', JSON.stringify(jwtDecode(token)))
+        Auth.updateToken(token);
+      }
       return res.json();
     }).then((res)=>{
       console.log({res});
@@ -45,7 +54,7 @@ const LoginAdmin = () => {
         })
       }
     }).catch((error)=>{
-      console.log({error});
+      console.error({error});
     });
   }
   

@@ -23,6 +23,9 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={
+        user?
+        <Navigate to={'/perfil'} replace={true}/>
+        :
         <Suspense fallback={<LoadingPage/>}>
           <Home/>
         </Suspense>
@@ -76,7 +79,6 @@ function App() {
          :<Navigate to={'/perfil'} replace={true}/>
       }/>
       {/* <Route path='/calls' /> */}
-      {/* <Route path='/users' /> */}
       <Route path='/call' element={
         user ? 
         <Suspense fallback={<LoadingPage/>}>

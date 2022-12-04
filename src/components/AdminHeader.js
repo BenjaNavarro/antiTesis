@@ -45,28 +45,29 @@ const AdminHeader = () => {
         </Link>
       </div>
       <div className='hidden md:hidden w-1/2 lg:flex justify-end items-center space-x-10'>
-        <Link to={'/admin_calls'}>
+        <Link to={'/calls'}>
           <label className='text-slate-100 cursor-pointer'>
             Llamadas
           </label>
         </Link>
-        <Link to={'/admin_pacients'}>
+        <Link to={'/pacients'}>
           <label className='text-slate-100 cursor-pointer'>
             Pacientes
           </label>
         </Link>
-        <Link to={'/admin_terapists'}>
+        <Link to={'/terapists'}>
           <label className='text-slate-100 cursor-pointer'>
             Terapeutas
           </label>
         </Link>
-        <Link to={'/admin_profile'}>
+        <Link to={'/perfil'}>
           <label className='text-slate-100 cursor-pointer'>
             {capitalizeFirstLetter(user.name)+' '+capitalizeFirstLetter(user.lastName)}
           </label>
         </Link>
         <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 
         onMouseLeave={()=>{setToggleDoor(!toggleDoor)}}
+        onClick={()=>{logout()}}
         className='text-slate-100 cursor-pointer flex'>
           Cerrar Sesión
           {

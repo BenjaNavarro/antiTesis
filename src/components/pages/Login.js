@@ -35,7 +35,7 @@ export default function Login(props) {
       // console.log('Header:',res.header);
       if(res.status === 200){
         const token = res.headers.get('x-auth-token');
-        console.log({token});
+        // console.log({token});
         localStorage.setItem('permisos', JSON.stringify(jwtDecode(token)))
         Auth.updateToken(token);
       }
