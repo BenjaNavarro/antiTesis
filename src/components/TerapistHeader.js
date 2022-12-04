@@ -4,10 +4,18 @@ import { FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
 import capitalizeFirstLetter from '../Utils/CapitalizeFirstLetter';
 import Auth from '../Utils/Auth';
 import Logout from '../Utils/Logout';
+import MenuToolTipTerapist from './modals/MenuToolTipTerapist';
 
 const TerapistHeader = () => {
   
-  const user = JSON.parse(localStorage.getItem('userLoged'));
+  const user = new Object();
+  //= JSON.parse(localStorage.getItem('userLoged'));
+  user.name="Felipe";
+  user.lastName="Aravena";
+  user.RUT="19728077-8";
+  user.email="felipe123@gmail.com";
+  user.phone="945648413";
+  user.birthDate="30-11-1997"
   const [toggleDoor, setToggleDoor] = useState(false);
 
   useEffect(()=>{
@@ -78,9 +86,9 @@ const TerapistHeader = () => {
           }
         </button>
       </div>
-      {/* <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
-        <MenuToolTip/>
-      </div> */}
+      <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
+        <MenuToolTipTerapist/>
+      </div> 
     </div>
   )
 }
