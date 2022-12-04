@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa'
 import MenuToolTip from './modals/MenuToolTip';
+import Home from './pages/Home'
+import { setNombreService, getNombreService, getMedicosPorNombreApellido } from './Services/Medicos';
+
 
 const Header = (props) => {
 
@@ -43,7 +47,7 @@ const Header = (props) => {
           </label>
         </Link> */}
       </div>
-      <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
+      <div className='flex items-center  sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
         <MenuToolTip/>
       </div>
     </div>

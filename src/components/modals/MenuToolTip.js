@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Popup from 'reactjs-popup';
 import { Popover} from '@headlessui/react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 

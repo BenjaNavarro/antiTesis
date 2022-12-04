@@ -105,7 +105,7 @@ export default function Login(props) {
             id='contrasena'
             type={passCheck?'text':'password'}
             value={pass}
-            placeholder={passCheck?'Escriba su contraseña...':'********'}
+            placeholder={passCheck?'Contraseña...':'********'}
             onChange={(e)=>{setPass(e.target.value)}}/>
             <div className='absolute top-[50%] sm:top-[52.5%] self-center left-[71%] sm:left-[89%] md:left-[90%] lg:left-[82%] xl:left-[82%] flex items-center leading-5'>
               <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
@@ -127,6 +127,9 @@ export default function Login(props) {
             <label className='text-white mr-2'>¿No tiene cuenta?</label>
             <Link to='/register'>
               <label className='text-white font-bold cursor-pointer'>¡Regístrese!</label>
+            </Link>
+            <Link to='/registro_terapeuta'>
+              <label className='text-white font-bold cursor-pointer ml-2'>¡Regístrese Terapeuta!</label>
             </Link>
           </div>
         </div>
