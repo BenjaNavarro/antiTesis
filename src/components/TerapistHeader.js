@@ -8,14 +8,14 @@ import MenuToolTipTerapist from './modals/MenuToolTipTerapist';
 
 const TerapistHeader = () => {
   
-  const user = new Object();
-  //= JSON.parse(localStorage.getItem('userLoged'));
-  user.name="Felipe";
-  user.lastName="Aravena";
-  user.RUT="19728077-8";
-  user.email="felipe123@gmail.com";
-  user.phone="945648413";
-  user.birthDate="30-11-1997"
+  // const user = new Object();
+  const user = JSON.parse(localStorage.getItem('userLoged'));
+  // user.name="Felipe";
+  // user.lastName="Aravena";
+  // user.RUT="19728077-8";
+  // user.email="felipe123@gmail.com";
+  // user.phone="945648413";
+  // user.birthDate="30-11-1997"
   const [toggleDoor, setToggleDoor] = useState(false);
 
   useEffect(()=>{
