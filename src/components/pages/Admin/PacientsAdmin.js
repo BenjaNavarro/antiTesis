@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import AdminHeader from '../../AdminHeader';
 import Auth from '../../../Utils/Auth';
-import { FaSpinner, FaTrash} from 'react-icons/fa';
+import { FaSpinner } from 'react-icons/fa';
 import formatoRut from '../../../Utils/FormatoRut';
 import Swal from 'sweetalert2';
+import TablaPacientesAdmin from '../../TablaPacientesAdmin';
+import CrearPacienteAdmin from '../../CrearPacienteAdmin';
 
 export default function PacientsAdmin(){
 
   const [pacients, setPacients] = useState([]);
   const [loadingPacients, setLoadingPacients] = useState(false);
+  const [createPacient, setCreatePacient] = useState(false);
 
   useEffect(()=>{
 
@@ -81,62 +84,14 @@ export default function PacientsAdmin(){
       shadow-2xl shadow-slate-600 bg-gray-900'>
         {
           loadingPacients?
-            <div className='w-full text-center flex justify-center'>
+            <div className='w-full text-center flex justify-center my-10'>
               <FaSpinner className='animate-spin text-4xl self-center text-center'/>
             </div>
+          :
+            createPacient?
+              <CrearPacienteAdmin setCreatePacient={setCreatePacient}/>
             :
-            <table className='w-full table table-fixed'>
-              <thead className='table-header-group'>
-                <tr className='table-row h-12'>
-                  <th className='table-cell'>Nombre</th>
-                  <th className='table-cell'>RUT</th>
-                  <th className='table-cell'>E-Mail</th>
-                  <th className='table-cell'>Teléfono</th>
-                  <th className='table-cell'>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  pacients.length > 0?
-                    pacients.map((pacient,i)=>{
-                      return(
-                        <tr className='table-row h-10' key={i}>
-                          <td className='table-cell'>{pacient.name+' '+pacient.lastName}</td>
-                          <td className='table-cell'>{formatoRut(pacient.RUT)}</td>
-                          <td className='table-cell'>{pacient.email}</td>
-                          <td className='table-cell'>{pacient.phone}</td>
-                          <td className='table-cell'>
-                            <div className='flex flex-wrap w-full justify-center'>
-                              <button className='hover:shadow-md shadow-slate-600' 
-                              title={'Eliminar paciente '+pacient.name+' '+pacient.lastName}
-                              onClick={()=>{
-                                Swal.fire({
-                                  title:'',
-                                  text:'¿Está seguro que desea eliminar el paciente '+pacient.name+' '+pacient.lastName+'?',
-                                  icon:'question',
-                                  showCancelButton:true,
-                                }).then((res)=>{
-                                  if(res.isConfirmed){
-                                    deletePacient(pacient._id);
-                                  }
-                                })
-                              }}>
-                                <FaTrash className='hover:scale-110'/>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    })
-                  :
-                  <tr>
-                    <td colSpan={5}>
-                      <label className=''>No hay pacientes asociados</label>
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
+              <TablaPacientesAdmin pacients={pacients} deletePacient={deletePacient} setCreatePacient={setCreatePacient}/>
         }
       </div>
     </div>

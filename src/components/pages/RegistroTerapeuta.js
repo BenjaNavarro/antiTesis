@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import formatoRut from '../../Utils/FormatoRut';
 import Rut from '../../Utils/Rut';
 import limpiaRut from '../../Utils/LimpiaRut';
 import { IoIosAlert } from 'react-icons/io';
 import ValidateEmail from '../../Utils/EmailValidator';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const RegistroTerapeuta = () => {
   const [step,setStep] = useState(1);
@@ -22,11 +23,16 @@ const RegistroTerapeuta = () => {
   const [address,setAddress] = useState('');
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
-  const [picture,setPicture] = useState(null);
+  // const [picture,setPicture] = useState(null);
   const [checkPassword,setCheckPassword] = useState(false);
   const [checkPasswordConfirmation,setCheckPasswordConfirmation] = useState(false);
+  const [token, setToken] = useState(null);
 
-  // useEffect();
+  const captchaRef = useRef();
+
+  useEffect(()=>{
+    // console.log('Registro Terapeuta');
+  },[]);
 
   const steps = () => {
     if(step === 1){
@@ -36,24 +42,77 @@ const RegistroTerapeuta = () => {
     }
   }
 
-  const changePicture = (e) => {
-    var file = e.target.files[0];
-    file.url = URL.createObjectURL(file);
-    var ext = file.name.split('.').pop();
-    // console.log("EXTENSION ",file);
-
-    if(ext !='jpeg' && ext !='png' && ext !='gif' && ext !='jpg' && ext !='TIFF')
-    {
+  async function crearTerapeuta(){
+    const url = process.env.REACT_APP_API_HOST+'/api/terapists/new';
+    const body = {
+      names: name,
+      lastName:lastName,
+      RUT:rut,
+      address:address,
+      email:email,
+      phone:phone,
+      password:password,
+      password_confirmation:confirmPassword
     }
-    else
-    {
-      setPicture(file);
-    }
+    await fetch(url,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': Auth.getToken()
+      },
+      body: JSON.stringify(body)
+    }).then((res)=>{
+      // console.log({res});
+      if(res.status === 200){
+        Swal.fire({
+          title:'Paciente Creado!',
+          text:'¡Se creó el paciente con éxito!',
+          icon:'success',
+          confirmButtonText:'Ok',
+          // showCancelButton:true,
+          // cancelButtonText:'No'
+        })
+      }else{
+        Swal.fire({
+          title:'Error!',
+          text:'¡No se pudo crear el paciente!',
+          icon:'error',
+          confirmButtonText:'Ok',
+          // showCancelButton:true,
+          // cancelButtonText:'No'
+        })
+      }
+    }).catch((error)=>{
+      console.error({error});
+      Swal.fire({
+        title:'Error!',
+        text:'¡No se pudo crear el paciente!',
+        icon:'error',
+        confirmButtonText:'Ok',
+        // showCancelButton:true,
+        // cancelButtonText:'No'
+      });
+    })
   }
+
+  // const changePicture = (e) => {
+  //   var file = e.target.files[0];
+  //   file.url = URL.createObjectURL(file);
+  //   var ext = file.name.split('.').pop();
+  //   // console.log("EXTENSION ",file);
+
+  //   if(ext !='jpeg' && ext !='png' && ext !='gif' && ext !='jpg' && ext !='TIFF')
+  //   {
+  //   }
+  //   else
+  //   {
+  //     setPicture(file);
+  //   }
+  // }
 
   const invalidForm = () => {
     return (
-      !name || !lastName || !email || !password || !confirmPassword || !phone || !address || (password != confirmPassword)
+      !name || !lastName || !email || !password || !confirmPassword || !phone || !address || (password != confirmPassword) || !token
     )
   }
 
@@ -161,25 +220,39 @@ const RegistroTerapeuta = () => {
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={password} type='password' onChange={(e)=>{setPassword(e.target.value)}} placeholder='********'/>
+          value={password} type={checkPassword?'text':'password'} onChange={(e)=>{setPassword(e.target.value)}} 
+          placeholder={checkPassword?'contraseña':'********'}/>
+          <div className='relative left-[96%] bottom-8 flex items-center'>
+            <button className='text-slate-100 text-xl self-center' title='Visualizar Contraseña'
+            onClick={()=>{setCheckPassword(!checkPassword)}}>
+              {!checkPassword?<FaEye/>:<FaEyeSlash/>}
+            </button>
+          </div>
         </div>
-        <div className='flex flex-col w-full'>
+        <div className='flex flex-col w-full -mt-4'>
           <label className='text-slate-100 text-left'>
             Confirmar Contraseña
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={confirmPassword} type='password' onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder='********'/>
+          value={confirmPassword} type={checkPasswordConfirmation?'text':'password'} onChange={(e)=>{setConfirmPassword(e.target.value)}} 
+          placeholder={checkPasswordConfirmation?'confirmar contraseña':'********'}/>
+          <div className='relative left-[96%] bottom-8 flex items-center'>
+            <button className='text-slate-100 text-xl self-center' title='Visualizar Contraseña'
+            onClick={()=>{setCheckPasswordConfirmation(!checkPasswordConfirmation)}}>
+              {!checkPasswordConfirmation?<FaEye/>:<FaEyeSlash/>}
+            </button>
+          </div>
           {
             password != confirmPassword && (
-              <label className='text-red-500 text-xs mt-4 flex flex-row self-center'>
+              <label className='text-red-500 text-xs my-2 flex flex-row self-center'>
                 ¡Ambas contraseñas deben ser iguales! 
                 <IoIosAlert className='text-red-500 text-sm bg-white rounded-full self-center ml-1'/>
               </label>
             )
-        }
+          }
         </div>
-        <div className='flex flex-col w-full'>
+        {/* <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>
             Foto de Perfil
           </label>
@@ -192,6 +265,11 @@ const RegistroTerapeuta = () => {
             <input className="hidden" id='imagen'
             type="file" accept='.jpeg,.png,.gif,.jpg,.TIFF' name="imagen" onChange={(e)=>{changePicture(e)}}/>
           </div>
+        </div> */}
+        <div className='flex flex-col justify-center w-full my-2'>
+          <ReCAPTCHA ref={captchaRef} className='focus:outline-none self-center'
+          sitekey={process.env.REACT_APP_WEB_KEY}
+          onChange={(e)=>{e.preventDefault();setToken(captchaRef.current.getValue())}}/>
         </div>
         <button onClick={()=>{
           Swal.fire({
@@ -201,6 +279,11 @@ const RegistroTerapeuta = () => {
             confirmButtonText:'Sí',
             showCancelButton:true,
             cancelButtonText:'No'
+          }).then((res)=>{
+            if(res.isConfirmed){
+              captchaRef.current.execute();
+              crearTerapeuta();
+            }
           });
         }} disabled={invalidForm()}
         className='bg-blue-400 hover:bg-blue-500 mt-6 w-40 rounded hover:scale-110 disabled:hover:scale-100 disabled:cursor-not-allowed

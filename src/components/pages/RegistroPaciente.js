@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header';
 import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -8,6 +8,8 @@ import Rut from '../../Utils/Rut';
 import limpiaRut from '../../Utils/LimpiaRut';
 import { IoIosAlert } from 'react-icons/io';
 import ValidateEmail from '../../Utils/EmailValidator';
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 const RegistroPaciente = () => {
   const [step,setStep] = useState(1);
@@ -27,11 +29,19 @@ const RegistroPaciente = () => {
   // const [picture,setPicture] = useState(null);
   const [checkPassword,setCheckPassword] = useState(false);
   const [checkPasswordConfirmation,setCheckPasswordConfirmation] = useState(false);
+  const [token, setToken] = useState(null);
+
+  const captchaRef = useRef();
   // const [validForm,setValidForm] = useState(false);
 
   // useEffect(()=>{
   //   setValidForm(!invalidForm());
   // },[validForm]);
+
+  useEffect(()=>{
+    // captchaRef.reset()
+    // console.log({captchaRef});
+  },[])
 
   const steps = () => {
     if(step === 1){
@@ -69,15 +79,6 @@ const RegistroPaciente = () => {
       password:password,
       password_confirmation:confirmPassword
     }
-    // var body = new FormData();
-    // body.append('names',name);
-    // body.append('firstLastName',lastName);
-    // body.append('RUT',rut);
-    // body.append('address',address);
-    // body.append('phone',phone);
-    // body.append('email',email);
-    // body.append('password',password);
-    // body.append('password_confirmation',confirmPassword);
     await fetch(url,{
       method: 'POST',
       headers: {
@@ -86,9 +87,7 @@ const RegistroPaciente = () => {
       },
       body: JSON.stringify(body)
     }).then((res)=>{
-      return res.json();
-    }).then((res)=>{
-      console.log({res});
+      // console.log({res});
       if(res.status === 200){
         Swal.fire({
           title:'Paciente Creado!',
@@ -109,6 +108,7 @@ const RegistroPaciente = () => {
         })
       }
     }).catch((err)=>{
+      console.error({err});
       Swal.fire({
         title:'Error!',
         text:'¡No se pudo crear el paciente!',
@@ -116,13 +116,13 @@ const RegistroPaciente = () => {
         confirmButtonText:'Ok',
         // showCancelButton:true,
         // cancelButtonText:'No'
-      })
+      });
     })
   }
 
   const invalidForm = () => {
     return (
-      !name || !lastName || !email || !password || !confirmPassword || !phone || !address || !(password == confirmPassword)
+      !name || !lastName || !email || !password || !confirmPassword || !phone || !address || !(password == confirmPassword) || !token
     )
   }
 
@@ -238,35 +238,42 @@ const RegistroPaciente = () => {
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={password} type={checkPassword?'text':'password'} onChange={(e)=>{setPassword(e.target.value)}} placeholder={checkPassword?'contraseña':'********'}/>
-          <div className='absolute top-[64.5%] sm:top-[54%] self-center left-[76%] sm:left-[89%] md:left-[90%] lg:left-[81%] xl:left-[82%] flex items-center leading-5'>
-            <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
+          value={password} type={checkPassword?'text':'password'} onChange={(e)=>{setPassword(e.target.value)}} 
+          placeholder={checkPassword?'contraseña':'********'}/>
+          <div className='relative left-[96%] bottom-9 flex items-center'>
+            <button className='text-slate-100 text-xl self-center' title='Visualizar Contraseña'
             onClick={()=>{setCheckPassword(!checkPassword)}}>
               {!checkPassword?<FaEye/>:<FaEyeSlash/>}
             </button>
           </div>
         </div>
-        <div className='flex flex-col w-full'>
+        <div className='flex flex-col w-full -my-4'>
           <label className='text-slate-100 text-left'>
             Confirmar Contraseña
           </label>
           <input className='bg-gray-900 focus:bg-slate-800 text-slate-300 focus:outline-none
           rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
-          value={confirmPassword} type={checkPasswordConfirmation?'text':'password'} onChange={(e)=>{setConfirmPassword(e.target.value)}} placeholder={checkPasswordConfirmation?'confirmar contraseña':'********'}/>
-          <div className='absolute top-[64.5%] sm:top-[67.5%] self-center left-[76%] sm:left-[89%] md:left-[90%] lg:left-[81%] xl:left-[82%] flex items-center leading-5'>
-            <button className='w-10 h-8 text-slate-100 text-xl self-center' title='Visualizar Contraseña'
+          value={confirmPassword} type={checkPasswordConfirmation?'text':'password'} onChange={(e)=>{setConfirmPassword(e.target.value)}} 
+          placeholder={checkPasswordConfirmation?'confirmar contraseña':'********'}/>
+          <div className='relative left-[96%] bottom-9 flex items-center'>
+            <button className='text-slate-100 text-xl self-center' title='Visualizar Contraseña'
             onClick={()=>{setCheckPasswordConfirmation(!checkPasswordConfirmation)}}>
               {!checkPasswordConfirmation?<FaEye/>:<FaEyeSlash/>}
             </button>
           </div>
           {
             password != confirmPassword ? 
-              <label className='text-red-500 text-xs mt-4 flex flex-row self-center'>
+              <label className='text-red-500 text-xs my-2 flex flex-row self-center'>
                 ¡Ambas contraseñas deben ser iguales! 
                 <IoIosAlert className='text-red-500 text-sm bg-white rounded-full self-center ml-1'/>
               </label>
             :null
           }
+        </div>
+        <div className='flex flex-col justify-center w-full my-2'>
+          <ReCAPTCHA ref={captchaRef} className='focus:outline-none self-center'
+          sitekey={process.env.REACT_APP_WEB_KEY}
+          onChange={(e)=>{e.preventDefault();setToken(captchaRef.current.getValue())}}/>
         </div>
         {/* <div className='flex flex-col w-full'>
           <label className='text-slate-100 text-left'>
@@ -283,6 +290,7 @@ const RegistroPaciente = () => {
           </div>
         </div> */}
         <button onClick={()=>{
+          // console.log({captchaRef});
           Swal.fire({
             title:'',
             text:'¿Está Seguro?',
@@ -292,6 +300,7 @@ const RegistroPaciente = () => {
             cancelButtonText:'No'
           }).then((res)=>{
             if(res.isConfirmed){
+              captchaRef.current.execute();
               CrearPaciente();
             }
           });

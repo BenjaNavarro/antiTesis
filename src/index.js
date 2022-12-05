@@ -8,13 +8,13 @@ import './index.css';
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<BrowserRouter>
       		<App />
 			{/* <ContextProvider>				
 			</ContextProvider> */}
 		</BrowserRouter>
-	</React.StrictMode>
+	// </React.StrictMode>
 );
 
 // ReactDOM.render(<App />,document.getElementById('root'));
