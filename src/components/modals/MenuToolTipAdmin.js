@@ -18,16 +18,16 @@ const MenuToolTipAdmin = () => {
             </Popover.Button>
             <Popover.Panel className='absolute right-[40%] z-10'>
                 <div className='flex flex-col bg-gray-900 border border-slate-100 rounded-lg p-2'>
-                <Link to='/admin_calls'>
+                <Link to='/calls'>
                     <label className='text-slate-100 cursor-pointer'>Llamadas</label>
                 </Link>    
-                <Link to='/admin_pacients'>
+                <Link to='/pacients'>
                     <label className='text-slate-100 cursor-pointer'>Pacientes</label>
                 </Link>
-                <Link to='/admin_terapists'>
+                <Link to='/terapists'>
                     <label className='text-slate-100 cursor-pointer'>Terapeutas</label>
                 </Link>
-                <Link to='/admin_terapists'>
+                <Link to='/perfil'>
                     <label className='text-slate-100 cursor-pointer'>Perfil</label>
                 </Link>
                 <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 

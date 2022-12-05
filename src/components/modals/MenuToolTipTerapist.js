@@ -17,7 +17,7 @@ const MenuToolTipTerapist = () => {
             </Popover.Button>
             <Popover.Panel className='absolute right-[40%] z-10'>
                 <div className='flex flex-col bg-gray-900 border border-slate-100 rounded-lg p-2'>
-                    <Link to='/terapist_calls'>
+                    <Link to='/calls'>
                         <label className='text-slate-100 cursor-pointer'>Mis Llamadas</label>
                     </Link>    
                     <Link to='/pacients'>

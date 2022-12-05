@@ -51,7 +51,7 @@ const PacientHeader = () => {
           </Link>
         </div>
         <div className='hidden md:hidden w-1/2 lg:flex justify-end mr-40 items-center space-x-10'>
-          <Link to={'/pacient_calls'}>
+          <Link to={'/calls'}>
             <label className='text-slate-100 cursor-pointer'>
               Mis Llamadas
             </label>

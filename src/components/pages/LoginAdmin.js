@@ -23,8 +23,8 @@ const LoginAdmin = () => {
       rut:rut,
       password:pass
     }
-    console.log({url})
-    console.log({body})
+    // console.log({url})
+    // console.log({body})
 
     await fetch(url,{
       method:'POST',
@@ -34,16 +34,16 @@ const LoginAdmin = () => {
       },
       body: JSON.stringify(body)
     }).then((res)=>{
-      console.log('Header:',res.header);
+      // console.log('Header:',res.header);
       if(res.status === 200){
         const token = res.headers.get('x-auth-token');
-        console.log({token});
+        // console.log({token});
         localStorage.setItem('permisos', JSON.stringify(jwtDecode(token)))
         Auth.updateToken(token);
       }
       return res.json();
     }).then((res)=>{
-      console.log({res});
+      // console.log({res});
       if(res.status === 200){
         localStorage.setItem('userLoged',JSON.stringify(res.admin));
         window.location.href = '/perfil';
