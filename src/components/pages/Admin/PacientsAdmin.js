@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdminHeader from '../../AdminHeader';
 import Auth from '../../../Utils/Auth';
 import { FaSpinner } from 'react-icons/fa';
-import formatoRut from '../../../Utils/FormatoRut';
+// import formatoRut from '../../../Utils/FormatoRut';
 import Swal from 'sweetalert2';
 import TablaPacientesAdmin from '../../TablaPacientesAdmin';
 import CrearPacienteAdmin from '../../CrearPacienteAdmin';
@@ -69,7 +69,7 @@ export default function PacientsAdmin(){
       }else{
         Swal.fire({
           title:'',
-          text:'No se pudo eliminar el paciente '+res.pacient.name+' '+res.pacient.lastName+'!',
+          text:'No se pudo eliminar el paciente!',
           icon:'error',
           confirmButtonText:'Ok',
         });
@@ -80,7 +80,7 @@ export default function PacientsAdmin(){
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>
       <AdminHeader/>
-      <div className='flex flex-col justify-center sm:flex-row flex-wrap self-center p-8 py-12 absolute w-[300px] sm:w-[90%] top-[15%] rounded-xl border-slate-300 border
+      <div className='flex flex-col justify-center sm:flex-row flex-wrap self-center p-8 py-12 absolute w-[800px] md:w-[90%] top-[15%] rounded-xl border-slate-300 border
       shadow-2xl shadow-slate-600 bg-gray-900'>
         {
           loadingPacients?

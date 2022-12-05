@@ -41,7 +41,7 @@ const RegistroPaciente = () => {
   useEffect(()=>{
     // captchaRef.reset()
     // console.log({captchaRef});
-  },[])
+  },[]);
 
   const steps = () => {
     if(step === 1){
@@ -300,7 +300,7 @@ const RegistroPaciente = () => {
             cancelButtonText:'No'
           }).then((res)=>{
             if(res.isConfirmed){
-              captchaRef.current.execute();
+              // captchaRef.current.execute();
               CrearPaciente();
             }
           });

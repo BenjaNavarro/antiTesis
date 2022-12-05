@@ -13,7 +13,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 const RegistroTerapeuta = () => {
   const [step,setStep] = useState(1);
   const [name,setName] = useState('');
-  const [validName,setValidName] = useState(true);
+  // const [validName,setValidName] = useState(true);
   const [lastName,setLastName] = useState('');
   const [rut,setRut] = useState('');
   const [invalidRut,setInvalidRut] = useState(false);

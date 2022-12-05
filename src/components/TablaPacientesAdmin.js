@@ -5,14 +5,15 @@ import { FaTrash } from 'react-icons/fa';
 
 const TablaPacientesAdmin = (props) => {
   return (
-    <div className='flex flex-col w-full'>
-      <div className='flex justify-start my-8 w-full border-slate-300 border
+    <div className='flex flex-col'>
+      <div className='flex justify-start mb-4 w-full border-slate-300 border
       shadow-lg shadow-slate-600 rounded-xl'>
-        <button className='w-40 h-10 text-center hover:shadow-slate-600 shadow rounded m-8 border border-slate-300'>
+        <button onClick={()=>{props.setCreatePacient(true)}} 
+        className='w-40 h-10 text-center hover:shadow-slate-600 shadow rounded m-8 border border-slate-300'>
           Crear Paciente
         </button>
       </div>
-      <table className='w-full table table-fixed'>
+      <table className='w-full table table-fixed whitespace-nowrap'>
         <thead className='table-header-group'>
           <tr className='table-row h-12'>
             <th className='table-cell'>Nombre</th>
@@ -28,11 +29,11 @@ const TablaPacientesAdmin = (props) => {
               props.pacients.map((pacient,i)=>{
                 return(
                   <tr className='table-row h-10' key={i}>
-                    <td className='table-cell'>{pacient.name+' '+pacient.lastName}</td>
-                    <td className='table-cell'>{formatoRut(pacient.RUT)}</td>
-                    <td className='table-cell'>{pacient.email}</td>
-                    <td className='table-cell'>{pacient.phone}</td>
-                    <td className='table-cell'>
+                    <td className='table-cell text-sm sm:text-base'>{pacient.name+' '+pacient.lastName}</td>
+                    <td className='table-cell text-sm sm:text-base'>{formatoRut(pacient.RUT)}</td>
+                    <td className='table-cell text-sm sm:text-base'>{pacient.email}</td>
+                    <td className='table-cell text-sm sm:text-base'>{pacient.phone}</td>
+                    <td className='table-cell text-sm sm:text-base'>
                       <div className='flex flex-wrap w-full justify-center'>
                         <button className='hover:shadow-md shadow-slate-600' 
                         title={'Eliminar paciente '+pacient.name+' '+pacient.lastName}
