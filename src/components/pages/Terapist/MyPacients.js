@@ -5,6 +5,7 @@ import { FaPhone, FaEnvelope, FaUser, FaUsers, FaIdCard, FaBirthdayCake } from '
 import formatoRut from '../../../Utils/FormatoRut';
 import emma from '../../img/testimonio-emma.png'
 import CardPacientesTerapista from '../../CardPacientesTerapista';
+import Swal from 'sweetalert2';
 
 
 const MyPacients = () => {
