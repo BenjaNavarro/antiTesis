@@ -6,14 +6,17 @@ import formatoRut from '../../../Utils/FormatoRut';
 
 const TerapistProfile = (props) => {
 
+   const user = JSON.parse(localStorage.getItem('userLoged'));
+
+   /*
   const user = new Object();
-  //= JSON.parse(localStorage.getItem('userLoged'));
   user.name="Diego";
   user.lastName="Gonzalez";
   user.RUT="18.691.733-2";
   user.email="diego123@gmail.com";
   user.phone="945648413";
   user.birthDate="20-09-1995"
+*/
 
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>

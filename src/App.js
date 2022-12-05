@@ -16,7 +16,7 @@ const TerapistProfile = React.lazy(()=>import('./components/pages/Terapist/Terap
 const MyPacients = React.lazy(()=>import('./components/pages/Terapist/MyPacients'));
 const TerapistsAdmin = React.lazy(()=>import('./components/pages/Admin/TerapistsAdmin'));
 
-const user = JSON.parse(localStorage.getItem('userLoged'));
+const user = localStorage.getItem('userLoged') ? JSON.parse(localStorage.getItem('userLoged')): null
 
 function App() {
   console.log({user});

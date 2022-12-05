@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import Auth from '../../Utils/Auth';
 import jwtDecode from 'jwt-decode';
 
+
 const LoginAdmin = () => {
   const [rut,setRut] = useState('');
   // const [invalidRut,setInvalidRut] = useState(false);
@@ -22,6 +23,9 @@ const LoginAdmin = () => {
       rut:rut,
       password:pass
     }
+    console.log({url})
+    console.log({body})
+
     await fetch(url,{
       method:'POST',
       headers:{

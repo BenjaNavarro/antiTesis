@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
 import MenuToolTipPacient from './modals/MenuToolTipPacient';
-
+import Auth from '../Utils/Auth';
+import Logout from '../Utils/Logout';
 
 const PacientHeader = () => {
     const user = JSON.parse(localStorage.getItem('userLoged'));
@@ -19,6 +20,25 @@ const PacientHeader = () => {
     useEffect(()=>{
       console.log('Pacient Header');
     },[]);
+
+    async function logout(){
+      const url = process.env.REACT_APP_API_HOST+'/api/admins/logout';
+      const body = user;
+      await fetch(url,{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': Auth.getToken()
+        },
+        body:JSON.stringify(body)
+      }).then((res)=>{
+        Auth.updateToken(res.token);
+        return res.json();
+      }).then((res)=>{
+        console.log({res});
+        Logout.logout();
+      }).catch((error)=>{console.error({error})});
+    }
 
     return (
       <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0
@@ -43,6 +63,7 @@ const PacientHeader = () => {
           </Link>
           <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 
             onMouseLeave={()=>{setToggleDoor(!toggleDoor)}}
+            onClick={()=>{logout()}}
             className='text-slate-100 cursor-pointer flex'>
               Cerrar Sesión
               {

@@ -4,7 +4,7 @@ import React from "react"
 const CardPacientesTerapistas = (props) => {
 
     return (
-        <div className='flex flex-row justify-center sm:justify-start  flex-wrap self-center p-8 py-2 absolute w-[300px] h-[250px] sm:w-[90%] sm:h-[20%] top-[25%] rounded-xl border-slate-300 border
+        <div className='flex flex-row justify-center sm:justify-start  flex-wrap self-center p-8 py-2 mt-14 w-[300px] h-[250px] sm:w-[90%] sm:h-[20%] top-[25%] rounded-xl border-slate-300 border
         shadow-2xl shadow-slate-600 bg-gray-900'>
             <img src={require(`./img/testimonio-emma.png`)} className='flex h-[120px] w-[100px] sm:w-1/5 rounded-md'></img>
             <div className='justify-start w-full sm:w-2/5'>
