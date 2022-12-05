@@ -15,11 +15,16 @@ const [rut,setRut] = useState('');
   const [passCheck,setPassCheck] = useState(false);
 
   async function login(){
-    const url = process.env.REACT_APP_API_HOST+'/api/admins/login';
+    const url = process.env.REACT_APP_API_HOST+'/api/terapists/login';
     const body = {
       rut:rut,
       password:pass
     }
+
+    console.log({url})
+    console.log({body})
+
+
     await fetch(url,{
       method:'POST',
       headers:{
@@ -32,7 +37,8 @@ const [rut,setRut] = useState('');
     }).then((res)=>{
       console.log({res});
       if(res.status === 200){
-        localStorage.setItem('userLoged',JSON.stringify(res.admin));
+        localStorage.setItem('userLoged',JSON.stringify(res.terapist));
+        window.location.href="/perfil"
       }else if(res.status===400){
         Swal.fire({
           title:'Error!',
