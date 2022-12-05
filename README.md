@@ -2,6 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Admin Data:
+
+rut: 189969090
+password: benja123 
+
+## Terapeuta Data
+
+15716838-k
+persona12
+
+## Paciente Data
+
+26070510-5
+emma123
+
 ## Available Scripts
 
 In the project directory, you can run:
