@@ -15,6 +15,7 @@ const PacientProfile = React.lazy(()=>import('./components/pages/Pacient/Pacient
 const TerapistProfile = React.lazy(()=>import('./components/pages/Terapist/TerapistProfile'));
 const MyPacients = React.lazy(()=>import('./components/pages/Terapist/MyPacients'));
 const TerapistsAdmin = React.lazy(()=>import('./components/pages/Admin/TerapistsAdmin'));
+const MyCalls = React.lazy(()=>import('./components/pages/Terapist/MyCalls'));
 
 const user = localStorage.getItem('userLoged') ? JSON.parse(localStorage.getItem('userLoged')): null
 
@@ -106,8 +107,15 @@ function App() {
           <LoginTerapist/>
         </Suspense>
       }/>
+      <Route path='/calls' element={
+        user?
+        <Suspense fallback={<LoadingPage/>}>
+          <MyCalls/>
+        </Suspense>
+        :<Navigate to={'/'} replace={true}/>
+      }/>
       
-       <Route path='/pacients/perfil' element={
+       {/* <Route path='/pacients/perfil' element={
         <Suspense fallback={<LoadingPage/>}>
           <PacientProfile/>
         </Suspense>
@@ -126,7 +134,7 @@ function App() {
         <Suspense fallback={<LoadingPage/>}>
           <MyPacients/>
         </Suspense>
-      }/>
+      }/> */}
       <Route path='*' element={
         <Suspense fallback={<LoadingPage/>}>
           <NotFound/>

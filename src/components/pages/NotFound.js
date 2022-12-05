@@ -1,15 +1,29 @@
 import React from 'react'
 import Header from '../Header';
+import AdminHeader from '../AdminHeader';
+import TerapistHeader from '../TerapistHeader';
+import PacientHeader from '../PacientHeader';
 
-function NotFound() {
+export default function NotFound() {
+
+  const user = JSON.parse(localStorage.getItem('userLoged'));
+
   return (
     <div className='bg-gray-900 flex min-h-screen h-full'>
-      <Header active=''/>
+      {
+        user?.type == 'admin'?
+          <AdminHeader/>
+        :
+        user?.type == 'terapist'?
+          <TerapistHeader/>
+        :
+        user?.type == 'pacient'?
+          <PacientHeader/>
+        :<Header/>
+      }
       <label className='text-white mt-40 text-4xl text-center w-full'>
-        Lo sentimos, no encontrado...
+        Lo sentimos, no encontrado :/
       </label>
     </div>
   )
 }
-
-export default NotFound;

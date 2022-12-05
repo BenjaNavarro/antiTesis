@@ -56,9 +56,9 @@ const PacientHeader = () => {
               Mis Llamadas
             </label>
           </Link>
-          <Link to={'/pecient_profile'}>
+          <Link to={'/perfil'}>
             <label className='text-slate-100 cursor-pointer'>
-              {user.name.toUpperCase()+' '+user.lastName.toUpperCase()}
+              {user.name+' '+user.lastName}
             </label>
           </Link>
           <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 
