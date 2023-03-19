@@ -4,7 +4,7 @@ import { FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
 import capitalizeFirstLetter from '../Utils/CapitalizeFirstLetter';
 import Auth from '../Utils/Auth';
 import Logout from '../Utils/Logout';
-import MenuToolTipTerapist from './modals/MenuToolTipTerapist';
+import MenuToolTipTerapist from './modals/MenuToolTip/MenuToolTipTerapist';
 
 const TerapistHeader = () => {
   

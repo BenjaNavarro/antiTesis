@@ -77,6 +77,42 @@ export default function PacientsAdmin(){
     }).catch((error)=>{console.error({error})})
   }
 
+  async function changeStatePacient(id){
+    const url = process.env.REACT_APP_API_HOST+"/api/pacients/"+id+"/changeState";
+    let status;
+    await fetch(url,{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': Auth.getToken()
+      }
+    }).then((res)=>{
+      status = res.status;
+      Auth.updateToken(res.headers.get('x-auth-token'));
+      return res.json();
+    }).then((res)=>{
+      if(status === 200){
+        Swal.fire({
+          title:'',
+          text:'Paciente '+res.pacient.name+' '+res.pacient.lastName+' '+(res.message=='Pacient Activated'?'activado':'desactivado')+' con éxito!',
+          icon:'success',
+          confirmButtonText:'Ok',
+        }).then(()=>{
+          loadPacients();
+        });
+      }else{
+        Swal.fire({
+          title:'',
+          text:'No se pudo cambiar el estado del paciente!',
+          icon:'error',
+          confirmButtonText:'Ok',
+        });
+      }
+      // console.log({res});
+      // console.log({status});
+    }).catch((error)=>{console.error({error})})
+  }
+
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>
       <AdminHeader/>
@@ -91,7 +127,7 @@ export default function PacientsAdmin(){
             createPacient?
               <CrearPacienteAdmin setCreatePacient={setCreatePacient}/>
             :
-              <TablaPacientesAdmin pacients={pacients} deletePacient={deletePacient} setCreatePacient={setCreatePacient}/>
+              <TablaPacientesAdmin pacients={pacients} deletePacient={deletePacient} setCreatePacient={setCreatePacient} changeStatePacient={changeStatePacient}/>
         }
       </div>
     </div>

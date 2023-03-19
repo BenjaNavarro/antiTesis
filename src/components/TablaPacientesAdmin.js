@@ -1,7 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 import formatoRut from '../Utils/FormatoRut';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaToggleOff, FaToggleOn, FaKey } from 'react-icons/fa';
 
 const TablaPacientesAdmin = (props) => {
   return (
@@ -35,7 +35,7 @@ const TablaPacientesAdmin = (props) => {
                     <td className='table-cell text-sm sm:text-base'>{pacient.phone}</td>
                     <td className='table-cell text-sm sm:text-base'>
                       <div className='flex flex-wrap w-full justify-center'>
-                        <button className='hover:shadow-md shadow-slate-600' 
+                        <button className='hover:shadow-md shadow-slate-600 p-1 m-1 focus:outline-none' 
                         title={'Eliminar paciente '+pacient.name+' '+pacient.lastName}
                         onClick={()=>{
                           Swal.fire({
@@ -47,9 +47,29 @@ const TablaPacientesAdmin = (props) => {
                             if(res.isConfirmed){
                               props.deletePacient(pacient._id);
                             }
-                          })
+                          });
                         }}>
                           <FaTrash className='hover:scale-110'/>
+                        </button>
+                        <button className='hover:shadow-md shadow-slate-600 p-1 m-1 focus:outline-none'
+                        title={(pacient.state?'Desactivar':'Activar')+" paciente "+pacient.name+" "+pacient.lastName+"?"}
+                        onClick={()=>{
+                          Swal.fire({
+                            title:'',
+                            text:'¿Está seguro que desea '+(pacient.state?"desactivar":"activar")+' al paciente '+pacient.name+' '+pacient.lastName+'?',
+                            icon:'question',
+                            showCancelButton:true,
+                          }).then((res)=>{
+                            if(res.isConfirmed){
+                              props.changeStatePacient(pacient._id);
+                            }
+                          });
+                        }}>
+                          {pacient.state?<FaToggleOn className='hover:scale-110'/>:<FaToggleOff className='hover:scale-110'/>}
+                        </button>
+                        <button className='hover:shadow-md shadow-slate-600 p-1 m-1 focus:outline-none'
+                        title={'Cambiar contraseña paciente '+pacient.name+" "+pacient.lastName+"?"}>
+                          <FaKey className='hover:scale-110'/>
                         </button>
                       </div>
                     </td>

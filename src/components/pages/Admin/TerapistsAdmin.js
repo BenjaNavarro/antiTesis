@@ -75,6 +75,42 @@ export default function TerapistsAdmin() {
     }).catch((error)=>{console.error({error})})
   }
 
+  async function changeStateTerapist(id){
+    const url = process.env.REACT_APP_API_HOST+"/api/terapists/"+id+"/changeState";
+    let status;
+    await fetch(url,{
+      method:'GET',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': Auth.getToken()
+      }
+    }).then((res)=>{
+      status = res.status;
+      Auth.updateToken(res.headers.get('x-auth-token'));
+      return res.json();
+    }).then((res)=>{
+      console.log({res});
+      if(status === 200){
+        Swal.fire({
+          title:'',
+          text:'Terapeuta '+res.terapist.name+' '+res.terapist.lastName+' '+(res.message=='Terapist Activated'?'activado':'desactivado')+' con éxito!',
+          icon:'success',
+          confirmButtonText:'Ok',
+        }).then(()=>{
+          LoadTerapists();
+        });
+      }else{
+        Swal.fire({
+          title:'',
+          text:'No se pudo cambiar el estado del terapeuta!',
+          icon:'error',
+          confirmButtonText:'Ok',
+        });
+      }
+      // console.log({status});
+    }).catch((error)=>{console.error({error})})
+  } 
+
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>
       <AdminHeader/>
@@ -89,7 +125,8 @@ export default function TerapistsAdmin() {
             create?
               <CrearTerapeutaAdmin setCreate={setCreate}/>
             :
-              <TablaTerapeutasAdmin setCreate={setCreate} terapists={terapists} DeleteTerapist={DeleteTerapist}/>
+              <TablaTerapeutasAdmin setCreate={setCreate} terapists={terapists} DeleteTerapist={DeleteTerapist}
+              changeStateTerapist={changeStateTerapist}/>
         }
       </div>
     </div>

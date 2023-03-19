@@ -6,23 +6,23 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 const MenuToolTip = (props) => {
 
   return(
-    <Popover className='relative'>
+    <Popover className='relative z-50'>
       <Popover.Button>
         <GiHamburgerMenu className='text-slate-100 cursor-pointer text-center'/>
       </Popover.Button>
-        <Popover.Panel className='absolute right-[40%] z-10'>
-          <div className='flex flex-col bg-gray-900 border border-slate-100 rounded-lg p-2'>
-            <Link to='/'>
-              <label className='text-slate-100 cursor-pointer'>Home</label>
-            </Link>
-            <Link to='/login'>
-              <label className='text-slate-100 cursor-pointer'>Login</label>
-            </Link>
-            <Link to='/call'>
-              <label className='text-slate-100 cursor-pointer'>Videollamada</label>
-            </Link>
-          </div>
-        </Popover.Panel>
+      <Popover.Panel className='absolute right-[40%] z-10'>
+        <div className='flex flex-col bg-gray-900 border border-slate-100 rounded-lg p-2'>
+          <Link to='/'>
+            <label className='text-slate-100 cursor-pointer'>Home</label>
+          </Link>
+          <Link to='/login'>
+            <label className='text-slate-100 cursor-pointer'>Login</label>
+          </Link>
+          <Link to='/call'>
+            <label className='text-slate-100 cursor-pointer'>Videollamada</label>
+          </Link>
+        </div>
+      </Popover.Panel>
     </Popover>
   );
 

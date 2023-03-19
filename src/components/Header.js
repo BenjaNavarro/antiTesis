@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa'
-import MenuToolTip from './modals/MenuToolTip';
+import MenuToolTip from './modals/MenuToolTip/MenuToolTip';
 import Home from './pages/Home'
 import { setNombreService, getNombreService, getMedicosPorNombreApellido } from './Services/Medicos';
 
@@ -10,10 +10,10 @@ const Header = (props) => {
 
   const user = JSON.parse(localStorage.getItem('userLoged'));
 
-  useEffect(()=>{
-    console.log('Header');
-    console.log({user});
-  },[]);
+  // useEffect(()=>{
+  //   console.log('Header');
+  //   console.log({user});
+  // },[]);
 
   return (
     <div className='backdrop-blur-md w-full h-12 px-16 flex flex-row justify-between fixed top-0 left-0

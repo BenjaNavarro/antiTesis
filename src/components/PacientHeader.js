@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
-import MenuToolTipPacient from './modals/MenuToolTipPacient';
+import MenuToolTipPacient from './modals/MenuToolTip/MenuToolTipPacient';
 import Auth from '../Utils/Auth';
 import Logout from '../Utils/Logout';
 

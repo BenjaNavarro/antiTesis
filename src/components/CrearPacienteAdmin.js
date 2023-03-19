@@ -239,25 +239,26 @@ const CrearPacienteAdmin = (props) => {
               </label>
             :null
           }
-          <button onClick={()=>{
-          // console.log({captchaRef});
-          Swal.fire({
-            title:'',
-            text:'¿Está Seguro?',
-            icon:'question',
-            confirmButtonText:'Sí',
-            showCancelButton:true,
-            cancelButtonText:'No'
-          }).then((res)=>{
-            if(res.isConfirmed){
-              // captchaRef.current.execute();
-              NuevoPaciente();
-            }
-          });
-        }} disabled={invalidForm()}
-        className='bg-blue-400 hover:bg-blue-500 mt-6 w-40 rounded hover:scale-110 disabled:hover:scale-100 disabled:cursor-not-allowed
-        text-center text-gray-900 h-8 self-center disabled:bg-gray-300 disabled:text-black'>
-          Continuar
+          <button 
+          onClick={()=>{
+            // console.log({captchaRef});
+            Swal.fire({
+              title:'',
+              text:'¿Está Seguro?',
+              icon:'question',
+              confirmButtonText:'Sí',
+              showCancelButton:true,
+              cancelButtonText:'No'
+            }).then((res)=>{
+              if(res.isConfirmed){
+                // captchaRef.current.execute();
+                NuevoPaciente();
+              }
+            });
+          }} disabled={invalidForm()}
+          className='bg-blue-400 hover:bg-blue-500 mt-6 w-40 rounded hover:scale-110 disabled:hover:scale-100 disabled:cursor-not-allowed
+          text-center text-gray-900 h-8 self-center disabled:bg-gray-300 disabled:text-black'>
+            Continuar
           </button>
         </div>
       </>

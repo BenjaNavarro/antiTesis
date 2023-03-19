@@ -4,25 +4,16 @@ import { FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
 import capitalizeFirstLetter from '../Utils/CapitalizeFirstLetter';
 import Auth from '../Utils/Auth';
 import Logout from '../Utils/Logout';
-import MenuToolTipAdmin from './modals/MenuToolTipAdmin';
+import MenuToolTipAdmin from './modals/MenuToolTip/MenuToolTipAdmin';
+import Swal from 'sweetalert2';
 
-const AdminHeader = () => {
-  
-
-  // const user = new Object();
-  //= JSON.parse(localStorage.getItem('userLoged'));
-  // user.name="Felipe";
-  // user.lastName="Aravena";
-  // user.RUT="19728077-8";
-  // user.email="felipe123@gmail.com";
-  // user.phone="945648413";
-  // user.birthDate="30-11-1997";
+const AdminHeader = (props) => {
 
   const user = JSON.parse(localStorage.getItem('userLoged'));
   const [toggleDoor, setToggleDoor] = useState(false);
 
   useEffect(()=>{
-    console.log('Admin Header');
+    // console.log('Admin Header');
   },[]);
 
   async function logout(){
@@ -78,7 +69,20 @@ const AdminHeader = () => {
         </Link>
         <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 
         onMouseLeave={()=>{setToggleDoor(!toggleDoor)}}
-        onClick={()=>{logout()}}
+        onClick={()=>{
+          Swal.fire({
+            title:'',
+            text:'¿Desea Cerrar Sesión?',
+            icon:'question',
+            confirmButtonText:'Sí',
+            showCancelButton:true,
+            cancelButtonText:'No'
+          }).then((res)=>{
+            if(res.isConfirmed){
+              logout();
+            }
+          });
+        }}
         className='text-slate-100 cursor-pointer flex'>
           Cerrar Sesión
           {
