@@ -6,12 +6,16 @@ import { FaSpinner } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import TablaPacientesAdmin from '../../TablaPacientesAdmin';
 import CrearPacienteAdmin from '../../CrearPacienteAdmin';
+import CambiarContrasenaPaciente from '../../modals/Admin/CambiarContrasenaPaciente';
+import { AlertaLoading } from '../../Alerts';
 
 export default function PacientsAdmin(){
 
   const [pacients, setPacients] = useState([]);
   const [loadingPacients, setLoadingPacients] = useState(false);
   const [createPacient, setCreatePacient] = useState(false);
+  const [changePassword,setChangePassword] = useState(false);
+  const [CurrentPacient,setCurrentPacient] = useState(null);
 
   useEffect(()=>{
 
@@ -110,14 +114,68 @@ export default function PacientsAdmin(){
       }
       // console.log({res});
       // console.log({status});
-    }).catch((error)=>{console.error({error})})
+    }).catch((error)=>{console.error({error})});
+  }
+
+  async function ChangePasswordPacient(password,password_confirmation){
+    // AlertaLoading.fire();
+    Swal.fire({
+      title: 'Cargando...',
+      onBeforeOpen () {
+        Swal.showLoading()
+      },
+      onAfterClose() {
+        Swal.hideLoading()
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false
+    })
+    const url = process.env.REACT_APP_API_HOST+"/api/pacients/"+CurrentPacient._id+"/changePassword";
+    const body = {
+      password:password,
+      password_confirmation:password_confirmation
+    }
+    let status;
+    await fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': Auth.getToken()
+      },
+      body:JSON.stringify(body)
+    }).then((res)=>{
+      status = res.status;
+      Auth.updateToken(res.headers.get('x-auth-token'));
+      return res.json();
+    }).then((res)=>{
+      if(status === 200){
+        Swal.fire({
+          title:'',
+          text:'Se ha cambiado la contraseña del paciente '+res.pacient.name+' '+res.pacient.lastName+' con éxito!',
+          icon:'success',
+          confirmButtonText:'Ok',
+        }).then(()=>{
+          loadPacients();
+        });
+      }else{
+        Swal.fire({
+          title:'',
+          text:'No se pudo cambiar la contraseña del paciente!',
+          icon:'error',
+          confirmButtonText:'Ok',
+        });
+      }
+      console.log({res});
+      console.log({status});
+    }).catch((error)=>{console.error({error})});
   }
 
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>
       <AdminHeader/>
-      <div className='flex flex-col justify-center sm:flex-row flex-wrap self-center p-8 py-12 absolute w-[800px] md:w-[90%] top-[15%] rounded-xl border-slate-300 border
-      shadow-2xl shadow-slate-600 bg-gray-900'>
+      <div className='flex flex-col justify-center sm:flex-row flex-wrap self-center p-8 py-12 w-[800px] md:w-[90%] top-[15%] rounded-xl border-slate-300 border
+      shadow-2xl shadow-slate-600 bg-gray-900 mt-32'>
         {
           loadingPacients?
             <div className='w-full text-center flex justify-center my-10'>
@@ -127,7 +185,12 @@ export default function PacientsAdmin(){
             createPacient?
               <CrearPacienteAdmin setCreatePacient={setCreatePacient}/>
             :
-              <TablaPacientesAdmin pacients={pacients} deletePacient={deletePacient} setCreatePacient={setCreatePacient} changeStatePacient={changeStatePacient}/>
+            changePassword?
+              <CambiarContrasenaPaciente ChangePasswordPacient={ChangePasswordPacient} setChangePassword={setChangePassword} CurrentPacient={CurrentPacient}
+              setCurrentPacient={setCurrentPacient}/>
+              :
+              <TablaPacientesAdmin pacients={pacients} deletePacient={deletePacient} setCreatePacient={setCreatePacient} changeStatePacient={changeStatePacient}
+              ChangePasswordPacient={ChangePasswordPacient} setChangePassword={setChangePassword} CurrentPacient={CurrentPacient} setCurrentPacient={setCurrentPacient}/>
         }
       </div>
     </div>

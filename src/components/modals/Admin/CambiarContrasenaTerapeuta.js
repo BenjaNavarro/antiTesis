@@ -8,7 +8,7 @@ const CambiarContrasenaTerapeuta = (props) => {
         modal>
             {
                 open => 
-                    <div className='w-full bg-'>
+                    <div className='w-full bg-main'>
 
                     </div>
             }

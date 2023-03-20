@@ -267,8 +267,7 @@ const CrearPacienteAdmin = (props) => {
 
   return (
     <div className='flex flex-col w-full justify-center'>
-      <div className='flex justify-start mb-4 w-full border-slate-300 border
-      shadow-lg shadow-slate-600 rounded-xl'>
+      <div className='flex justify-start mb-4 w-full border-slate-300 border shadow-lg shadow-slate-600 rounded-xl'>
         <button onClick={()=>{props.setCreatePacient(false)}} 
         className='w-40 h-10 text-center hover:shadow-slate-600 shadow rounded m-8 border border-slate-300 hover:bg-slate-800'>
           Volver

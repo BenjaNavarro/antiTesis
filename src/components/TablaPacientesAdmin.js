@@ -68,7 +68,11 @@ const TablaPacientesAdmin = (props) => {
                           {pacient.state?<FaToggleOn className='hover:scale-110'/>:<FaToggleOff className='hover:scale-110'/>}
                         </button>
                         <button className='hover:shadow-md shadow-slate-600 p-1 m-1 focus:outline-none'
-                        title={'Cambiar contraseña paciente '+pacient.name+" "+pacient.lastName+"?"}>
+                        title={'Cambiar contraseña paciente '+pacient.name+" "+pacient.lastName+"?"}
+                        onClick={()=>{
+                          props.setCurrentPacient(pacient);
+                          props.setChangePassword(true);
+                        }}>
                           <FaKey className='hover:scale-110'/>
                         </button>
                       </div>

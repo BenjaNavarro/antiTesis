@@ -1,9 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa'
 import MenuToolTip from './modals/MenuToolTip/MenuToolTip';
-import Home from './pages/Home'
-import { setNombreService, getNombreService, getMedicosPorNombreApellido } from './Services/Medicos';
 
 
 const Header = (props) => {
