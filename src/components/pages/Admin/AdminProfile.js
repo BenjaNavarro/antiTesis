@@ -25,9 +25,9 @@ export default function AdminProfile(props){
     });
     const [Edit,setEdit] = useState(false);
 
-    useEffect(()=>{
-        console.log({User});
-    },[]);
+    // useEffect(()=>{
+    //     console.log({User});
+    // },[]);
 
     async function UpdateUser(){
         const url = process.env.REACT_APP_API_HOST+"/api/admins/"+Original._id+"/update";
@@ -46,7 +46,6 @@ export default function AdminProfile(props){
         }).then((res)=>{
             status = res.status;
             const token = res.headers.get('x-auth-token');
-            console.log({token});
             Auth.updateToken(token);
             if(status === 200){
                 localStorage.setItem('permisos', JSON.stringify(jwtDecode(token)));
@@ -83,7 +82,7 @@ export default function AdminProfile(props){
 
     return (
         <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>
-            <AdminHeader/>
+            <AdminHeader selected="perfil"/>
             <div className='flex flex-col justify-start sm:flex-row flex-wrap self-center p-8 py-12 mt-32 w-[300px] sm:w-[90%] top-[25%] rounded-xl border-slate-300 border
             shadow-2xl shadow-slate-600 bg-gray-900'>
                 <div className='flex flex-row w-full justify-end'>

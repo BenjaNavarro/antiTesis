@@ -107,34 +107,13 @@ function App() {
           <LoginTerapist/>
         </Suspense>
       }/>
-      <Route path='/calls' element={
+      <Route path='/sesiones' element={
         user?
         <Suspense fallback={<LoadingPage/>}>
           <MyCalls/>
         </Suspense>
         :<Navigate to={'/'} replace={true}/>
       }/>
-      
-       {/* <Route path='/pacients/perfil' element={
-        <Suspense fallback={<LoadingPage/>}>
-          <PacientProfile/>
-        </Suspense>
-      }/>
-      <Route path='/admins/perfil' element={
-        <Suspense fallback={<LoadingPage/>}>
-          <AdminProfile/>
-        </Suspense>
-      }/>
-       <Route path='/terapists/perfil' element={
-        <Suspense fallback={<LoadingPage/>}>
-          <TerapistProfile/>
-        </Suspense>
-      }/>
-       <Route path='/terapists/pacients' element={
-        <Suspense fallback={<LoadingPage/>}>
-          <MyPacients/>
-        </Suspense>
-      }/> */}
       <Route path='*' element={
         <Suspense fallback={<LoadingPage/>}>
           <NotFound/>

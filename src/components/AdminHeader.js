@@ -12,9 +12,9 @@ const AdminHeader = (props) => {
   const user = JSON.parse(localStorage.getItem('userLoged'));
   const [toggleDoor, setToggleDoor] = useState(false);
 
-  useEffect(()=>{
-    // console.log('Admin Header');
-  },[]);
+  // useEffect(()=>{
+  //   console.log({props});
+  // },[]);
 
   async function logout(){
     const url = process.env.REACT_APP_API_HOST+'/api/admins/logout';
@@ -30,7 +30,7 @@ const AdminHeader = (props) => {
       Auth.updateToken(res.token);
       return res.json();
     }).then((res)=>{
-      console.log({res});
+      // console.log({res});
       Logout.logout();
     }).catch((error)=>{console.error({error})});
   }
@@ -47,23 +47,23 @@ const AdminHeader = (props) => {
         </Link>
       </div>
       <div className='hidden md:hidden w-1/2 lg:flex justify-end items-center space-x-10'>
-        <Link to={'/calls'}>
-          <label className='text-slate-100 cursor-pointer'>
-            Llamadas
+        {/* <Link to={'/sesiones'}>
+          <label className={'text-slate-100 cursor-pointer'}>
+            Sesiones
           </label>
-        </Link>
+        </Link> */}
         <Link to={'/pacients'}>
-          <label className='text-slate-100 cursor-pointer'>
+          <label className={'text-slate-100 cursor-pointer hover:border-b-[0.5px] border-slate-100 '+(props.selected === "pacients"?" border-b border-slate-100 font-bold":null)}>
             Pacientes
           </label>
         </Link>
         <Link to={'/terapists'}>
-          <label className='text-slate-100 cursor-pointer'>
+          <label className={'text-slate-100 cursor-pointer hover:border-b-[0.5px] border-slate-100 '+(props.selected === "terapists"?" border-b border-slate-100 font-bold":null)}>
             Terapeutas
           </label>
         </Link>
         <Link to={'/perfil'}>
-          <label className='text-slate-100 cursor-pointer'>
+          <label className={'text-slate-100 cursor-pointer hover:border-b-[0.5px] border-slate-100 '+(props.selected === "perfil"?" border-b border-slate-100 font-bold":null)}>
             {capitalizeFirstLetter(user.name)+' '+capitalizeFirstLetter(user.lastName)}
           </label>
         </Link>
@@ -83,7 +83,7 @@ const AdminHeader = (props) => {
             }
           });
         }}
-        className='text-slate-100 cursor-pointer flex'>
+        className='text-slate-100 cursor-pointer flex hover:border-b-[0.5px] border-slate-100 '>
           Cerrar Sesión
           {
           toggleDoor?
@@ -94,7 +94,7 @@ const AdminHeader = (props) => {
         </button>
       </div>
       <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
-        <MenuToolTipAdmin/>
+        <MenuToolTipAdmin logout={logout}/>
       </div> 
     </div>
   )

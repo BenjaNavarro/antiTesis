@@ -157,7 +157,7 @@ export default function TerapistsAdmin() {
 
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-900 text-gray-50 text-center'>
-      <AdminHeader/>
+      <AdminHeader selected="terapists"/>
       <div className='flex flex-col justify-center sm:flex-row flex-wrap self-center p-8 py-12 w-[800px] md:w-[90%] top-[15%] rounded-xl border-slate-300 border
       shadow-2xl shadow-slate-600 bg-gray-900 mt-32'>
         {

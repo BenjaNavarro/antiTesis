@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from 'react-router-dom';
 import { FaDoorOpen, FaDoorClosed } from 'react-icons/fa';
+import Swal from "sweetalert2";
 
 
 
-const MenuToolTipAdmin = () => {
+const MenuToolTipAdmin = (props) => {
 
     const [toggleDoor, setToggleDoor] = useState(false);
 
@@ -31,8 +32,22 @@ const MenuToolTipAdmin = () => {
                     <label className='text-slate-100 cursor-pointer'>Perfil</label>
                 </Link>
                 <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 
-                    onMouseLeave={()=>{setToggleDoor(!toggleDoor)}}
-                    className='text-slate-100 cursor-pointer flex'>
+                onMouseLeave={()=>{setToggleDoor(!toggleDoor)}}
+                className='text-slate-100 cursor-pointer flex'
+                onClick={()=>{
+                    Swal.fire({
+                        title:'',
+                        text:'¿Desea Cerrar Sesión?',
+                        icon:'question',
+                        confirmButtonText:'Sí',
+                        showCancelButton:true,
+                        cancelButtonText:'No'
+                    }).then((res)=>{
+                        if(res.isConfirmed){
+                          props.logout();
+                        }
+                      });
+                }}>
                     Cerrar Sesión
                     {
                     toggleDoor?
