@@ -75,8 +75,6 @@ const CrearPacienteAdmin = (props) => {
           text:'¡Se creó el paciente con éxito!',
           icon:'success',
           confirmButtonText:'Ok',
-          // showCancelButton:true,
-          // cancelButtonText:'No'
         })
         setTimeout(() => {
           window.location.reload();
@@ -87,8 +85,6 @@ const CrearPacienteAdmin = (props) => {
           text:'¡No se pudo crear el paciente!',
           icon:'error',
           confirmButtonText:'Ok',
-          // showCancelButton:true,
-          // cancelButtonText:'No'
         })
       }
     }).catch((error)=>{console.error({error})})

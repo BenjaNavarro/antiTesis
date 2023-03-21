@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Popup from 'reactjs-popup';
-import { FaKey, FaTimes, FaEye, FaEyeSlash, FaExclamation  } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaExclamation  } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const CambiarContrasenaPaciente = (props) => {
@@ -13,20 +12,9 @@ const CambiarContrasenaPaciente = (props) => {
     const [ValidationMessage,setValidationMessage] = useState("");
 
     useEffect(()=>{
-        console.log({props});
-    },[]);
-
-    // useEffect(()=>{
-    //     if(!Password || Password.length < 6){
-    //         setValidPass(false);
-    //         setValidationMessage(!Password?"Debe escribir una contraseña!":"La contraseña debe contener al menos 6 caracteres!");
-    //     }
-    // },[Password]);
-
-    useEffect(()=>{
         if(!Password || Password.length < 7){
             setValidPass(false);
-            setValidationMessage(!Password?"Debe escribir una contraseña!":"La contraseña debe contener al menos 6 caracteres!");
+            setValidationMessage(!Password?"Debe escribir una contraseña!":"La contraseña debe contener al menos 7 caracteres!");
         }else if(Password != PasswordConfirmation){
             setValidPass(false);
             setValidationMessage("Ámbos campos deben ser iguales!");
@@ -34,16 +22,6 @@ const CambiarContrasenaPaciente = (props) => {
             setValidPass(true);
         }
     },[Password,PasswordConfirmation]);
-
-    // const handleBlur = (e) => {
-    //     if(e.target.name == "Password" && (!Password || Password.length < 6)){
-    //         setValidPass(false);
-    //         setValidationMessage(!Password?"Debe escribir una contraseña!":"La contraseña debe contener al menos 6 caracteres!");
-    //     }else if(e.target.name == "PasswordConfirmation" && (Password !== PasswordConfirmation)){
-    //         setValidPass(false);
-    //         setValidationMessage("Ámbos campos deben ser iguales!");
-    //     }
-    // }
 
     const ComeBack = () => {
         props.setChangePassword(false);
@@ -64,11 +42,7 @@ const CambiarContrasenaPaciente = (props) => {
                 rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
                 value={Password} type={checkPass?'text':'password'} onChange={(e)=>{setPassword(e.target.value)}} 
                 placeholder={checkPass?'contraseña':'********'}
-                name="Password"
-                // onBlur={(e)=>{
-                //     handleBlur(e);
-                // }}
-                />
+                name="Password"/>
                 <div className='relative left-[97%] bottom-8 flex items-center'>
                     <button className='text-slate-100 text-xl self-center focus:outline-slate-100' title='Visualizar Contraseña'
                     onClick={()=>{setCheckPass(!checkPass)}}>
@@ -84,11 +58,7 @@ const CambiarContrasenaPaciente = (props) => {
                 rounded-xl border border-slate-300 focus:border-slate-200 w-full p-2 self-center text-center'
                 value={PasswordConfirmation} type={checkPassConfirmation?'text':'password'} onChange={(e)=>{setPasswordConfirmation(e.target.value)}} 
                 placeholder={checkPassConfirmation?'contraseña':'********'}
-                name="PasswordConfirmation"
-                // onBlur={(e)=>{
-                //     handleBlur(e);
-                // }}
-                />
+                name="PasswordConfirmation"/>
                 <div className='relative left-[97%] bottom-8 flex items-center'>
                     <button className='text-slate-100 text-xl self-center focus:outline-slate-100' title='Visualizar Contraseña'
                     onClick={()=>{setCheckPassConfirmation(!checkPassConfirmation)}}>

@@ -68,7 +68,11 @@ const TablaTerapeutasAdmin = (props) => {
                           {terapist.state?<FaToggleOn className='hover:scale-110'/>:<FaToggleOff className='hover:scale-110'/>}
                         </button>
                         <button className='hover:shadow-md shadow-slate-600 p-1 m-1 focus:outline-none'
-                        title={'Cambiar contraseña terapeuta '+terapist.name+" "+terapist.lastName+"?"}>
+                        title={'Cambiar contraseña terapeuta '+terapist.name+" "+terapist.lastName+"?"}
+                        onClick={()=>{
+                          props.setCurrentTerapist(terapist);
+                          props.setChangePassword(true);
+                        }}>
                           <FaKey className='hover:scale-110'/>
                         </button>
                       </div>

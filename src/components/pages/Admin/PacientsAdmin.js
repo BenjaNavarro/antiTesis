@@ -157,6 +157,8 @@ export default function PacientsAdmin(){
           confirmButtonText:'Ok',
         }).then(()=>{
           loadPacients();
+          setChangePassword(false);
+          setCurrentPacient(null);
         });
       }else{
         Swal.fire({
@@ -166,8 +168,8 @@ export default function PacientsAdmin(){
           confirmButtonText:'Ok',
         });
       }
-      console.log({res});
-      console.log({status});
+      // console.log({res});
+      // console.log({status});
     }).catch((error)=>{console.error({error})});
   }
 
