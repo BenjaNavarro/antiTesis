@@ -94,7 +94,7 @@ const AdminHeader = (props) => {
         </button>
       </div>
       <div className='flex items-center sm:flex sm:items-end md:flex xl:hidden lg:hidden md:items-end sm:self-center md:self-center'>
-        <MenuToolTipAdmin logout={logout}/>
+        <MenuToolTipAdmin logout={logout} selected={props.selected}/>
       </div> 
     </div>
   )

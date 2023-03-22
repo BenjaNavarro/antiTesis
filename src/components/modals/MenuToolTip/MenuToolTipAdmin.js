@@ -19,21 +19,21 @@ const MenuToolTipAdmin = (props) => {
             </Popover.Button>
             <Popover.Panel className='absolute right-[40%] z-10'>
                 <div className='flex flex-col bg-gray-900 border border-slate-100 rounded-lg p-2'>
-                <Link to='/calls'>
+                {/* <Link to='/calls'>
                     <label className='text-slate-100 cursor-pointer'>Llamadas</label>
-                </Link>    
+                </Link>     */}
                 <Link to='/pacients'>
-                    <label className='text-slate-100 cursor-pointer'>Pacientes</label>
+                    <label className={'text-slate-100 cursor-pointer hover:border-b-[0.5px] border-slate-100'+(props.selected ==="pacients"?" border-b border-slate-100 font-bold":null)}>Pacientes</label>
                 </Link>
                 <Link to='/terapists'>
-                    <label className='text-slate-100 cursor-pointer'>Terapeutas</label>
+                    <label className={'text-slate-100 cursor-pointer hover:border-b-[0.5px] border-slate-100'+(props.selected ==="terapists"?" border-b border-slate-100 font-bold":null)}>Terapeutas</label>
                 </Link>
                 <Link to='/perfil'>
-                    <label className='text-slate-100 cursor-pointer'>Perfil</label>
+                    <label className={'text-slate-100 cursor-pointer hover:border-b-[0.5px] border-slate-100'+(props.selected ==="perfil"?" border-b border-slate-100 font-bold":null)}>Perfil</label>
                 </Link>
                 <button onMouseEnter={()=>{setToggleDoor(!toggleDoor)}} 
                 onMouseLeave={()=>{setToggleDoor(!toggleDoor)}}
-                className='text-slate-100 cursor-pointer flex'
+                className='text-slate-100 cursor-pointer flex hover:border-b-[0.5px] border-slate-100'
                 onClick={()=>{
                     Swal.fire({
                         title:'',

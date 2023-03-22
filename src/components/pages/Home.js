@@ -4,7 +4,7 @@ import Header from '../Header';
 export default function Home() {
   return (
     <div className='flex flex-col w-full min-h-screen bg-gray-700 text-gray-50 text-center'>
-      <Header active='login'/>
+      <Header selected=""/>
 			<div className='flex flex-col w-full h-full'>
         <div className='h-[25vh] bg-gray-900 w-full py-[25%]'>
           <label className='text-slate-100 text-6xl font-bold text-center w-full'>
