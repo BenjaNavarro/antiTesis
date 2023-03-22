@@ -84,11 +84,11 @@ export default function SolicitarContrasena(props) {
                         confirmButtonText:'Sí',
                         showCancelButton:true,
                         cancelButtonText:'No'
-                      }).then((res)=>{
+                    }).then((res)=>{
                         if(res.isConfirmed){
                           RecuperarContrasena();
                         }
-                      });
+                    });
                 }}
                 className='bg-gray-900 hover:bg-slate-800 text-slate-300 rounded-xl border border-slate-300 hover:border-slate-200 w-40 lg:w-1/4 xl:w-1/5 p-2 self-center text-center mt-4 disabled:border-slate-300 disabled:bg-gray-900 disabled:cursor-not-allowed'>
                     Recuperar Contraseña
